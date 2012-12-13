@@ -6,7 +6,7 @@ class User
   field :email, :type => String
   field :role, :type => String
   belongs_to :identity
-  has_many :xmains, :class_name => "Gmindapp::Xmain"
+  has_many :xmains, :class_name => "Mindapp::Xmain"
 
   def has_role(role1)
     return role.upcase.split(',').include?(role1.upcase)

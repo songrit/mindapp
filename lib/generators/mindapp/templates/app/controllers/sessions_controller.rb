@@ -10,14 +10,14 @@ class SessionsController < ApplicationController
   def create
     user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = user.id
-    redirect_to '/gmindapp/pending'
+    redirect_to '/mindapp/pending'
   rescue
     redirect_to root_path, :alert=> "Authentication failed, please try again."
   end
 
   def destroy
     session[:user_id] = nil
-    # redirect_to '/gmindapp/help'
+    # redirect_to '/mindapp/help'
     refresh_to root_path
   end
 

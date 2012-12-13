@@ -1,12 +1,12 @@
-module Gmindapp
+module Mindapp
   module Generators
     class InstallGenerator < Rails::Generators::Base
-      desc "Install Gmindapp component to existing Rails app "
+      desc "Install mindapp component to existing Rails app "
       def self.source_root
         File.dirname(__FILE__) + "/templates"
       end
       def setup_gems
-        gem "nokogiri" # use for gmindapp/doc
+        gem "nokogiri" # use for mindapp/doc
         # gem "mechanize"
         # gem "rmagick", :require => "RMagick", :platform => "ruby"
         gem "geokit"
@@ -33,11 +33,11 @@ module Gmindapp
           gem "rspec-rails"
         end
       end
-      
+
       def setup_routes
-        route "root :to => 'gmindapp#index'"
-        route "match '/gmindapp/init/:module/:service(/:id)' => 'gmindapp#init'"
-        
+        route "root :to => 'mindapp#index'"
+        route "match '/mindapp/init/:module/:service(/:id)' => 'Mindapp#init'"
+
         route "resources :identities"
         route "resources :sessions"
         route "match '/auth/:provider/callback' => 'sessions#create'"
@@ -56,11 +56,11 @@ module Gmindapp
         end
         application do
 %q{
-  # gmindapp default
-  config.generators do |g| 
-    g.orm             :mongoid 
+  # Mindapp default
+  config.generators do |g|
+    g.orm             :mongoid
     g.template_engine :haml
-    g.test_framework  :rspec 
+    g.test_framework  :rspec
     g.integration_tool :rspec
   end
   # gmail config
@@ -76,12 +76,12 @@ module Gmindapp
   config.action_mailer.perform_deliveries = true
 }
         end
-        initializer "gmindapp.rb" do
+        initializer "mindapp.rb" do
 %q{
 # encoding: utf-8
 
-DEFAULT_TITLE = 'GMINDAPP'
-DEFAULT_HEADER = 'GMINDAPP'
+DEFAULT_TITLE = 'Mindapp'
+DEFAULT_HEADER = 'Mindapp'
 GMAP = true
 NEXT = "Next >"
 # unset IMAGE_LOCATION to use cloudinary
@@ -105,7 +105,7 @@ NEXT = "Next >"
           "\n  raise_not_found_error: false"
         end
       end
-      
+
       def setup_omniauth
         # gem 'bcrypt-ruby', '~> 3.0.0'
         # gem 'omniauth-identity'
@@ -121,7 +121,7 @@ end
 }
         end
       end
-      
+
       def setup_app
         inside("public") { run "mv index.html index.html.bak" }
         inside("app/controllers") { run "mv application_controller.rb application_controller.rb.bak" }

@@ -1,0 +1,23 @@
+#search{"data-role" => "page"}
+  %div{"data-role" => "header", "data-backbtn" => "false"}
+    %h1 Search
+  %div{"data-role" => "content"}
+    - form_tag({:controller=>"mindapp", :action=>"search"}, :method => "get" ) do
+      = text_field_tag :q, "", :type=>"search", :required=>true, :placeholder=>"key word", :onkeypress=>"$('input').unbind('keypress');"
+      = submit_tag "Search", "data-inline"=>"true"
+    - form_tag({:controller=>"mindapp", :action=>"status"}, :method => "get" ) do
+      = text_field_tag :id, nil, :required=>true, :placeholder=>"task number", :onkeypress=>"$('input').unbind('keypress');"
+      = submit_tag "Status", "data-inline"=>"true"
+    = link_to "Pending Tasks", "#", :onclick=>"location.hash='/mindapp/pending'", "data-role"=>"button"
+    = link_to "Refresh", "#", :onclick=>"window.location.replace('/')", "data-role"=>"button"
+    = link_to "About", "#", :onclick=>"location.hash='#about'", "data-role"=>"button"
+:javascript
+  function notice(msg) {
+    $("<div class='ui-loader ui-overlay-shadow ui-body-e ui-corner-all'><h1>"+ msg +"</h1></div>")
+      .css({ "display": "block", "opacity": 0.96, "top": $(window).scrollTop() + 100 })
+  		.appendTo( $('div[data-id="main"]') )
+  		.delay( 4000 )
+  		.fadeOut( 400, function(){
+  		  $(this).remove();
+  		});
+  }

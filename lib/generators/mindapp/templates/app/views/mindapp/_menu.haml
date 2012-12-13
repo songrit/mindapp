@@ -1,0 +1,22 @@
+- head = login? ? current_user.code : DEFAULT_HEADER
+%div{"data-context" => "a#default", "data-hash" => "crumbs", "data-id" => "menu", "data-role" => "panel"}
+  #main{"data-role" => "page"}
+    %div{"data-role" => "header", "data-theme" => "b", "data-backbtn"=>"false"}
+      %h1= head
+    %div{"data-role" => "content"}
+      %ul{"data-role" => "listview", "data-theme" => "g"}
+        %li
+          %a{"data-panel" => "main", :href => "/mindapp"} หน้าแรก
+        = render "/mindapp/menu_mm"
+        - if login?
+          %li
+            %a{:href=>"/mindapp/pending", "data-rel"=>"dialog", "data-panel" => "main"} งานระหว่างดำเนินการ
+          %li
+            %a{"data-panel" => "main", :href => logout_path, "data-ajax"=>"false"} ออกจากระบบ
+        - else
+          %li
+            %a{:href=>new_session_path, "data-rel"=>"dialog", "data-panel" => "main"} เข้าใช้ระบบ
+          %li
+            %a{:href=>new_identity_path, "data-rel"=>"dialog", "data-panel" => "main"} สมัครสมาชิก
+        %li
+          = link_to "ปรับปรุงหน้าจอ", "#", :onclick=>"window.location.replace('/')"

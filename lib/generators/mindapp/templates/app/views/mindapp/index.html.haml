@@ -1,0 +1,33 @@
+%div(style="text-align:center")
+  = image_tag "logo_Mindapp.png"
+
+%h2 Requirements
+%ul
+  %li Rails 3.2
+  %li Rubygems 1.8.7
+
+%h2 Installation
+%ul
+  %li gem 'Mindapp', may need to uncomment therubyracer
+  %li bundle
+  %li rails generate Mindapp:install
+  %li rake db:seed, will create initial user admin:secret
+  %li when update app/Mindapp/index.mm, run rake Mindapp:update
+
+%h2 Convention
+%ul
+  %li database is MongoDB
+  %li images stored in or Cloudinary (default) unset IMAGE_LOCATION in initializer/Mindapp.rb to use file system
+  %li mail use Gmail SMTP
+
+%h2 Analyst
+%ul
+  %li when delete model, must run rake destroy model
+
+%h2 UI
+%ul
+  %li
+
+%h2 Business Logic
+%ul
+  %li
