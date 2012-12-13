@@ -1,0 +1,20 @@
+/%h3= "Search #{@q}"
+= will_paginate @docs, :class=>'flickr_pagination', :params=>{:q=>@q}
+/= will_paginate @xmains, :class=>'flickr_pagination', :params=>{:q=>@q}
+
+%table{:width=>"100%"}
+  %tr{:style=>"color:white; background-color:#6A6A6A; text-shadow:none;"}
+    %th id
+    %th task
+    %th starter
+    %th begin
+    %th end
+    %th status
+  - @xmains.each do |xmain|
+    %tr
+      %td= link_to xmain.id, :action=>"status", :id=>xmain.id
+      %td= link_to xmain.name, :action=>"status", :id=>xmain.id
+      %td{:align=>'center'}= xmain.gma_user.full_name
+      %td= date_thai xmain.start, :date_only=>true
+      %td= xmain.stop ? date_thai(xmain.stop, :date_only=>true) : '&nbsp;'
+      %td(align='center')= status_icon xmain

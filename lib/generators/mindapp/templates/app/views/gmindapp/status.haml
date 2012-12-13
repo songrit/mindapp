@@ -1,0 +1,61 @@
+%table{:width=>"100%"}
+  %tr{:style=>"color:white; background-color:#6A6A6A;"}
+    %th id
+    %th step
+    %th starter
+    %th begin
+    %th end
+  - @xmain.runseqs.form_action.each do |r|
+    %tr
+      - if @xmain.status=='X'
+        %td{:align=>'center'}= image_tag 'cancel.png'
+      - else
+        %td{:align=>'center'}= status_icon(r)
+      %td= r.name
+      %td{:align=>'center'}
+        - if r.role.blank? && @xvars[:action]
+          - u = @xvars[:action][:assign].blank? ? '&nbsp;' : User.find(@xvars[:action][:assign]).full_name
+          = u
+          - if @xvars[:action][:final]=='n'
+            %td{:align=>'center'} -
+            %td{:align=>'center'} -
+          - else
+            - if r.start
+              %td= date_thai r.start
+            - else
+              %td{:align=>'center'} -
+            - if r.stop
+              %td= date_thai r.stop
+            - else
+              %td{:align=>'center'} -
+        - else
+          = role_name r.role
+          - if r.start
+            %td= date_thai r.start
+          - else
+            %td{:align=>'center'} -
+          - if r.stop
+            %td= date_thai r.stop
+          - else
+            %td{:align=>'center'} -
+.label
+  = image_tag "cog.png"
+  เอกสารประกอบ
+%table{:width=>"100%"}
+  %tr{:style=>"color:white; background-color:#6A6A6A;"}
+    %th เอกสาร
+    %th ชื่อไฟล์
+    %th ผู้ดำเนินการ
+    %th วันที่
+  - @xmain.docs.each do |doc|
+    - next unless doc.display
+    %tr
+      %td
+        - if doc.content_type=='output'
+          = image_tag 'page_output.png'
+        - else
+          = image_tag 'page_attach.png'
+        = link_to align_text(doc.name), "/engine/document/#{doc.id}", :target=>'_blank'
+      %td= doc.filename
+      %td= doc.gma_user.full_name
+      %td= date_thai doc.created_at

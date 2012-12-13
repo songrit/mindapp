@@ -1,0 +1,10 @@
+<li><%= link_to "<span>หน้าแรก</span>","/" %></li>
+<li><%= mail_to "songrit@gmail.com", "<span>ติดต่อ</span>" %></li>
+<li><%= link_to "<span>#{image_tag 'twittersmall.png'}</span>","http://twitter.com/songrit", :title => "Twitter", :class=>"top-icon" %></li>
+<li><%= link_to "<span>#{image_tag 'facebooksmall.png'}</span>","http://www.facebook.com/songrit", :title => "Facebook", :class=>"top-icon" %></li>
+<li><%= link_to "<span>#{image_tag 'help.png'}</span>","/main/doc", :title => "คู่มือการใช้งาน", :class=>"top-icon" %></li>
+<script type="text/javascript">
+  $(window).load(function() {
+    $(".top-icon").tooltip({ position: "bottom center"});
+  })
+</script>

@@ -1,0 +1,5 @@
+#pending{"data-role" => "page"}
+  %div{"data-role" => "header" , "data-backbtn"=>"false"}
+    %h1 Pending Tasks
+  %div{"data-role" => "content"}
+    = render :partial => "pending_page", :locals=>{:xmains=>@xmains}

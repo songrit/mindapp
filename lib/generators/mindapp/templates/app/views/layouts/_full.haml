@@ -1,0 +1,39 @@
+!!! 5
+%html
+  %head
+    %meta(name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1")
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application"
+    - if GMAP
+      = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false"
+  %body
+    = render :partial => "gmindapp/menu"
+    %div{"data-id" => "main", "data-role" => "panel", "data-backbtn"=>"false"}
+      - if @cache
+        - cache = {}
+      - else
+        - cache = {"data-cache"=>"never"}
+      - if @backbtn
+        - backbtn= {"data-backbtn"=>"true"}
+      - else
+        - backbtn= {"data-backbtn"=>"false"}
+      %div{{"data-role" => "page"}.merge(cache) }
+        %div{{"data-role" => "header"}.merge(backbtn)}
+          %h1= @title || DEFAULT_TITLE
+        %div{"data-role" => "content"}
+          = yield
+
+      = render :partial => "gmindapp/static"
+
+:javascript
+  $('div').live('pagehide', function(e,ui) {
+    var page = $(e.target);
+    if(page.attr('data-cache') == 'never') {
+      page.remove();
+    };
+  });
+  $( document ).on( "pagechange", function(){
+    $.get("/gmindapp/ajax_notice", function(r) {$(r).appendTo('head').remove()});
+  });
+
+/= raw handle_gma_notice

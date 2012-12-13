@@ -1,0 +1,30 @@
+<%- @title= 'ขึ้นทะเบียนผู้ใช้ใหม่' %>
+<%= form_tag "/auth/identity/register", {'data-ajax'=>'false'} do %>
+  <% if @identity && @identity.errors.any? %>
+    <div class="error_messages">
+      <h2><%= pluralize(@identity.errors.count, "error") %> prohibited this account from being saved:</h2>
+      <ul>
+      <% @identity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field" data-role="fieldcontain">
+    <%= label_tag :code, 'ชื่อผู้ใช้' %>
+    <%= text_field_tag :code, @identity.try(:code) %>
+  </div>
+  <div class="field" data-role="fieldcontain">
+    <%= label_tag :email %>
+    <%= text_field_tag :email, @identity.try(:email) %>
+  </div>
+  <div class="field" data-role="fieldcontain">
+    <%= label_tag :password, 'รหัสผ่าน' %>
+    <%= password_field_tag :password %>
+  </div>
+  <div class="field" data-role="fieldcontain">
+    <%= label_tag :password_confirmation, 'ยืนยันรหัสผ่าน' %>
+    <%= password_field_tag :password_confirmation %>
+  </div>
+  <div class="actions"><%= submit_tag "สร้างผู้ใช้ใหม่" %></div>
+<% end %>

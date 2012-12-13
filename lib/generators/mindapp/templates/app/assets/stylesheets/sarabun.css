@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'TH SarabunPSK';
+  src: url('fonts/thsarabunnew-webfont.eot');
+  src: url('fonts/thsarabunnew-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/thsarabunnew-webfont.woff') format('woff'),
+    url('fonts/thsarabunnew-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'TH SarabunPSK';
+  font-style: normal;
+  font-weight: bold;
+  src: url('fonts/thsarabunnew_bold-webfont.eot');
+  src: url('fonts/thsarabunnew_bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/thsarabunnew_bold-webfont.woff') format('woff'),
+    url('fonts/thsarabunnew_bold-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'TH SarabunPSK';
+  font-style: italic;
+  font-weight: bold;
+  src: url('fonts/thsarabunnew_bolditalic-webfont.eot');
+  src: url('fonts/thsarabunnew_bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/thsarabunnew_bolditalic-webfont.woff') format('woff'),
+    url('fonts/thsarabunnew_bolditalic-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'TH SarabunPSK';
+  font-style: italic;
+  font-weight: normal;
+  src: url('fonts/thsarabunnew_italic-webfont.eot');
+  src: url('fonts/thsarabunnew_italic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('fonts/thsarabunnew_italic-webfont.woff') format('woff'),
+    url('fonts/thsarabunnew_italic-webfont.ttf') format('truetype');
+}
+
