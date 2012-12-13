@@ -7,36 +7,30 @@ module Mindapp
       end
       def setup_gems
         gem "nokogiri" # use for mindapp/doc
-        # gem "mechanize"
         # gem "rmagick", :require => "RMagick", :platform => "ruby"
-        gem "geokit"
-        gem 'rubyzip', :require => 'zip/zip'
         gem 'haml-rails'
         gem "mail"
         gem "prawn"
-        gem "kaminari"
         # bug in mongo ruby driver 1.6.1, wait for mongoid 2.4.7
         gem "mongo", "1.5.1"
         gem "bson_ext", "1.5.1"
         gem "mongoid"
         gem "redcarpet"
-        # gem 'maruku'
-        # gem 'wirble'
-        # gem 'therubyracer'
         gem 'bcrypt-ruby', '~> 3.0.0'
         gem 'omniauth-identity'
         gem 'cloudinary'
         gem_group :development, :test do
-          # gem "ruby-debug"
           gem "debugger"
           gem "rspec"
           gem "rspec-rails"
+          gem "better_errors"
+          gem "binding_of_caller"
         end
       end
 
       def setup_routes
         route "root :to => 'mindapp#index'"
-        route "match '/mindapp/init/:module/:service(/:id)' => 'Mindapp#init'"
+        # route "match '/mindapp/init/:module/:service(/:id)' => 'Mindapp#init'"
 
         route "resources :identities"
         route "resources :sessions"
@@ -85,7 +79,7 @@ DEFAULT_HEADER = 'Mindapp'
 GMAP = true
 NEXT = "Next >"
 # unset IMAGE_LOCATION to use cloudinary
-# IMAGE_LOCATION = "public/upload"
+IMAGE_LOCATION = "upload"
 # for debugging
 # DONT_SEND_MAIL = true
 }
@@ -124,9 +118,7 @@ end
 
       def setup_app
         inside("public") { run "mv index.html index.html.bak" }
-        inside("app/controllers") { run "mv application_controller.rb application_controller.rb.bak" }
         inside("app/views/layouts") { run "mv application.html.erb application.html.erb.bak" }
-        inside("app/helpers") { run "mv application_helper.rb application_helper.rb.bak" }
         inside("app/assets/javascripts") { run "mv application.js application.js.bak" }
         inside("app/assets/stylesheets") { run "mv application.css application.css.bak" }
         directory "app"
