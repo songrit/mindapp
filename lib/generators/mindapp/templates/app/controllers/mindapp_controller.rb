@@ -285,7 +285,6 @@ class MindappController < ApplicationController
   def doc
     require 'rdoc'
     @app= get_app
-    @name = 'ระบบงานสินเชื่อติดตั้งแก๊ซใช้ในรถยนต์'
     @intro = File.read('README.md')
     @print= "<div align='right'><img src='/assets/printer.png'/> <a href='/mindapp/doc_print' target='_blank'/>พิมพ์</a></div>"
     doc= render_to_string 'doc.md', :layout => false

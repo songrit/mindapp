@@ -208,7 +208,7 @@ module Mindapp
             ma_service= Mindapp::Service.find_or_create_by :module_code=> ma_module.code, :code=> scode, :name=> sname
             ma_service.update_attributes :xml=>s.to_s, :name=>sname,
               :list=>listed(s), :secured=>secured?(s),
-              :module_id=>gma_module.id, :seq => seq,
+              :module_id=>ma_module.id, :seq => seq,
               :confirm=> get_option_xml("confirm", xml),
               :role => role, :rule => rule, :uid=> gma_service.id.to_s
             seq += 1

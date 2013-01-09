@@ -1,6 +1,13 @@
 # Mindapp
 
-TODO: Write a gem description
+gem to generate ror app from mind map
+
+## Convention
+
+  * database is MongoDB
+  * images stored in or Cloudinary (default) unset IMAGE_LOCATION in initializer/mindapp.rb to use file system
+  * mail use Gmail SMTP
+  * authentication use omniauth-identity
 
 ## Installation
 
@@ -12,9 +19,14 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Then
 
-    $ gem install mindapp
+  $ rails generate mindapp:install
+  $ rake db:seed, will create initial user admin:secret
+
+When make changes to app/mindapp/index.mm, run
+
+  $ rake mindapp:update
 
 ## Usage
 
