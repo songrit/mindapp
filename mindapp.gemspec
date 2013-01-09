@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Mindapp::VERSION
   gem.authors       = ["songrit"]
   gem.email         = ["songrit@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{generate ror app from mind map}
+  gem.summary       = %q{generate ror app from mind map}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)

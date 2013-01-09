@@ -7,7 +7,7 @@
     - if GMAP
       = javascript_include_tag "http://maps.google.com/maps/api/js?sensor=false"
   %body
-    = render :partial => "Mindapp/menu"
+    = render :partial => "mindapp/menu"
     %div{"data-id" => "main", "data-role" => "panel", "data-backbtn"=>"false"}
       - if @cache
         - cache = {}
@@ -23,7 +23,7 @@
         %div{"data-role" => "content"}
           = yield
 
-      = render :partial => "Mindapp/static"
+      = render :partial => "mindapp/static"
 
 :javascript
   $('div').live('pagehide', function(e,ui) {
@@ -33,7 +33,7 @@
     };
   });
   $( document ).on( "pagechange", function(){
-    $.get("/Mindapp/ajax_notice", function(r) {$(r).appendTo('head').remove()});
+    $.get("/mindapp/ajax_notice", function(r) {$(r).appendTo('head').remove()});
   });
 
 /= raw handle_gma_notice

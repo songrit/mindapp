@@ -85,9 +85,9 @@ IMAGE_LOCATION = "upload"
 }
         end
 
-        # hack to fix cloudinary error https://github.com/archiloque/rest-client/issues/141
-        inject_into_file 'config/environments.rb' do
-          "\nclass Hash\n  remove_method :read\nend"
+        inject_into_file 'config/environment.rb', :after => "initialize!"  do
+          "\n\n# hack to fix cloudinary error https://github.com/archiloque/rest-client/issues/141" +
+          "\nclass Hash\n  remove_method :read\nrescue\nend"
         end
         inject_into_file 'config/environments/development.rb', :after => 'config.action_mailer.raise_delivery_errors = false' do
           "\n  config.action_mailer.default_url_options = { :host => 'localhost:3000' }"
