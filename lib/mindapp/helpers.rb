@@ -85,7 +85,7 @@ module Mindapp
         return current_user.has_role(role)
       end
     end
-    def gma_log(message)
+    def ma_log(message)
       Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
         :user_id => $user.id, :unread=> true
     end
@@ -210,7 +210,7 @@ module Mindapp
               :list=>listed(s), :secured=>secured?(s),
               :module_id=>ma_module.id, :seq => seq,
               :confirm=> get_option_xml("confirm", xml),
-              :role => role, :rule => rule, :uid=> gma_service.id.to_s
+              :role => role, :rule => rule, :uid=> ma_service.id.to_s
             seq += 1
             protected_services << ma_service.uid
           else

@@ -33,16 +33,15 @@ class MindappController < ApplicationController
       result = create_runseq(xmain)
       unless result
         message = "cannot find action for xmain #{xmain.id}"
-        gma_log("ERROR", message)
+        ma_log("ERROR", message)
         flash[:notice]= message
-        # gma_notice message
         redirect_to "pending" and return
       end
       xmain.update_attribute(:xvars, @xvars)
       xmain.runseqs.last.update_attribute(:end,true)
       redirect_to :action=>'run', :id=>xmain.id
     else
-      refresh_to "/", :alert => "ขออภัย ไม่สามารถทำงานได้"
+      refresh_to "/", :alert => "Error: cannot process"
     end
   end
   def run
@@ -68,8 +67,8 @@ class MindappController < ApplicationController
           f= "app/views/#{service.module.code}/#{service.code}/#{@runseq.code}.html.erb"
           @ui= File.read(f)
         else
-          flash[:notice]= "ไม่สามารถค้นหาบริการที่ต้องการได้"
-          gma_notice "ไม่สามารถค้นหาบริการที่ต้องการได้"
+          # flash[:notice]= "ไม่สามารถค้นหาบริการที่ต้องการได้"
+          ma_log "Error: Service not found"
           redirect_to_root
         end
       end
@@ -160,8 +159,8 @@ class MindappController < ApplicationController
       @message = "สิ้นสุดการทำงาน" if @runseq.end
       eval "@xvars[@runseq.code] = url_for(:controller=>'Mindapp', :action=>'document', :id=>@doc.id)"
     else
-      flash[:notice]= "ไม่สามารถค้นหาบริการที่ต้องการได้"
-      gma_notice "ไม่สามารถค้นหาบริการที่ต้องการได้"
+      # flash[:notice]= "ไม่สามารถค้นหาบริการที่ต้องการได้"
+      ma_log "Error: service not found"
       redirect_to_root
     end
     #display= get_option("display")
@@ -315,7 +314,7 @@ class MindappController < ApplicationController
     @backbtn= true
     @xvars= @xmain.xvars
     # flash.now[:notice]= "รายการ #{@xmain.id} ได้ถูกยกเลิกแล้ว" if @xmain.status=='X'
-    gma_notice "Task #{@xmain.id} is cancelled" if @xmain.status=='X'
+    ma_log "Task #{@xmain.id} is cancelled" if @xmain.status=='X'
     # flash.now[:notice]= "transaction #{@xmain.id} was cancelled" if @xmain.status=='X'
   rescue
     refresh_to "/", :alert => "Could not find task number <b> #{params[:xid]} </b>"
@@ -335,16 +334,16 @@ class MindappController < ApplicationController
     end
   end
   def err404
-    gma_log 'ERROR', 'main/err404'
+    # ma_log 'ERROR', 'main/err404'
     flash[:notice] = "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
-    gma_notice "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
+    ma_log "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
     # gma_notice "ขออภัย เกิดข้อผิดพลาดรหัส 404 ขึ้นในระบบ กรุณาติดต่อผู้ดูแลระบบ"
     redirect_to '/'
   end
   def err500
-    gma_log 'ERROR', 'main/err500'
+    # gma_log 'ERROR', 'main/err500'
     flash[:notice] = "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
-    gma_notice "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
+    ma_log "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
     # gma_notice "ขออภัย เกิดข้อผิดพลาดรหัส 500 ขึ้นในระบบ กรุณาติดต่อผู้ดูแลระบบ"
     redirect_to '/'
   end
