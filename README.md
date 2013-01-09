@@ -2,12 +2,16 @@
 
 gem to generate ror app from mind map
 
+## Warning
+
+* under development, not ready yet
+
 ## Convention
 
-  * database is MongoDB
-  * images stored in or Cloudinary (default) unset IMAGE_LOCATION in initializer/mindapp.rb to use file system
-  * mail use Gmail SMTP
-  * authentication use omniauth-identity
+* database is MongoDB
+* images stored in or Cloudinary (default) unset IMAGE_LOCATION in initializer/mindapp.rb to use file system
+* mail use Gmail SMTP
+* authentication use omniauth-identity
 
 ## Installation
 
@@ -21,12 +25,12 @@ And then execute:
 
 Then
 
-  $ rails generate mindapp:install
-  $ rake db:seed, will create initial user admin:secret
+    $ rails generate mindapp:install
+    $ rake db:seed, will create initial user admin:secret
 
 When make changes to app/mindapp/index.mm, run
 
-  $ rake mindapp:update
+    $ rake mindapp:update
 
 ## Usage
 

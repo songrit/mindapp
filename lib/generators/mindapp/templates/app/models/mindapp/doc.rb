@@ -18,13 +18,13 @@ class Mindapp::Doc
 
   def self.search(q, page, per_page=PER_PAGE)
     paginate :per_page=>per_page, :page => page, :conditions =>
-      ["content_type=? AND data_text LIKE ? AND (secured=? OR gma_user_id=?)",
+      ["content_type=? AND data_text LIKE ? AND (secured=? OR ma_user_id=?)",
       "output", "%#{q}%", false, session[:user_id] ],
-      :order=>'gma_xmain_id DESC', :select=>'DISTINCT gma_xmain_id'
+      :order=>'ma_xmain_id DESC', :select=>'DISTINCT ma_xmain_id'
   end
   def self.search_secured(q, page, per_page=PER_PAGE)
     paginate :per_page=>per_page, :page => page, :conditions =>
       ["content_type=? AND data_text LIKE ?", "output", "%#{q}%" ],
-      :order=>'gma_xmain_id DESC', :select=>'DISTINCT gma_xmain_id'
+      :order=>'ma_xmain_id DESC', :select=>'DISTINCT ma_xmain_id'
   end
 end

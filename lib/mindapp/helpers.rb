@@ -7,7 +7,7 @@ module Mindapp
     end
     def refresh_to(url='/', option={})
       if option[:alert]
-        gma_log option[:alert]
+        ma_log option[:alert]
       end
       render :text => "<script>window.location.replace('#{url}')</script>"
     end
@@ -27,7 +27,7 @@ module Mindapp
       c, h= url.split(':', 2)
       opt= h ? h.strip : false
     end
-    def gma_comment?(s)
+    def ma_comment?(s)
       s[0]==35
     end
     def get_ip
@@ -155,7 +155,7 @@ module Mindapp
     def ui_action?(s)
       %w(form output mail pdf).include? s
     end
-    # def handle_gma_notice
+    # def handle_ma_notice
     #   if Mindapp::Notice.recent.count>0
     #     notice= Mindapp::Notice.recent.last
     #     notice.update_attribute :unread, false
