@@ -322,7 +322,7 @@ class MindappController < ApplicationController
   def help
   end
   def search
-    @q = params[:q] || params[:gma_search][:q] || ""
+    @q = params[:q] || params[:ma_search][:q] || ""
     @title = "ผลการค้นหา #{@q}"
     @backbtn= true
     @cache= true
@@ -337,14 +337,14 @@ class MindappController < ApplicationController
     # ma_log 'ERROR', 'main/err404'
     flash[:notice] = "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
     ma_log "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
-    # gma_notice "ขออภัย เกิดข้อผิดพลาดรหัส 404 ขึ้นในระบบ กรุณาติดต่อผู้ดูแลระบบ"
+    # ma_notice "ขออภัย เกิดข้อผิดพลาดรหัส 404 ขึ้นในระบบ กรุณาติดต่อผู้ดูแลระบบ"
     redirect_to '/'
   end
   def err500
-    # gma_log 'ERROR', 'main/err500'
+    # ma_log 'ERROR', 'main/err500'
     flash[:notice] = "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
     ma_log "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
-    # gma_notice "ขออภัย เกิดข้อผิดพลาดรหัส 500 ขึ้นในระบบ กรุณาติดต่อผู้ดูแลระบบ"
+    # ma_notice "ขออภัย เกิดข้อผิดพลาดรหัส 500 ขึ้นในระบบ กรุณาติดต่อผู้ดูแลระบบ"
     redirect_to '/'
   end
 
@@ -373,7 +373,7 @@ class MindappController < ApplicationController
     i= 0; j= 0 # i= step, j= form_step
     root.elements.each('node') do |activity|
       text= activity.attributes['TEXT']
-      next if gma_comment?(text)
+      next if ma_comment?(text)
       next if text =~/^rule:\s*/
       action= freemind2action(activity.elements['icon'].attributes['BUILTIN']) if activity.elements['icon']
       return false unless action
@@ -457,7 +457,7 @@ class MindappController < ApplicationController
     else
       @docs = GmaDoc.search(@q.downcase, params[:page], PER_PAGE)
     end
-    @xmains = GmaXmain.find(@docs.map(&:gma_xmain_id)).sort { |a,b| b.id<=>a.id }
+    @xmains = GmaXmain.find(@docs.map(&:ma_xmain_id)).sort { |a,b| b.id<=>a.id }
     # @xmains = GmaXmain.find @docs.map(&:created_at).sort { |a,b| b<=>a }
   end
 end
