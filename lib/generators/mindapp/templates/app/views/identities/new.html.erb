@@ -1,4 +1,4 @@
-<%- @title= 'ขึ้นทะเบียนผู้ใช้ใหม่' %>
+<%- @title= 'Sign Up' %>
 <%= form_tag "/auth/identity/register", {'data-ajax'=>'false'} do %>
   <% if @identity && @identity.errors.any? %>
     <div class="error_messages">
@@ -11,7 +11,7 @@
     </div>
   <% end %>
   <div class="field" data-role="fieldcontain">
-    <%= label_tag :code, 'ชื่อผู้ใช้' %>
+    <%= label_tag :code, 'Username' %>
     <%= text_field_tag :code, @identity.try(:code) %>
   </div>
   <div class="field" data-role="fieldcontain">
@@ -19,12 +19,12 @@
     <%= text_field_tag :email, @identity.try(:email) %>
   </div>
   <div class="field" data-role="fieldcontain">
-    <%= label_tag :password, 'รหัสผ่าน' %>
+    <%= label_tag :password, 'Password' %>
     <%= password_field_tag :password %>
   </div>
   <div class="field" data-role="fieldcontain">
-    <%= label_tag :password_confirmation, 'ยืนยันรหัสผ่าน' %>
+    <%= label_tag :password_confirmation, 'Confirm password' %>
     <%= password_field_tag :password_confirmation %>
   </div>
-  <div class="actions"><%= submit_tag "สร้างผู้ใช้ใหม่" %></div>
+  <div class="actions"><%= submit_tag "Sign Up" %></div>
 <% end %>

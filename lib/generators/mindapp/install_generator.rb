@@ -46,7 +46,8 @@ module Mindapp
         generate "mongoid:config"
         generate "rspec:install"
         inject_into_file 'config/application.rb', :after => 'require "active_resource/railtie"' do
-          "\nrequire 'mongoid/railtie'"
+          "\nrequire 'mongoid/railtie'\n"
+          "\nrequire 'rexml/document'\n"
         end
         application do
 %q{
