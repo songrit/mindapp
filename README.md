@@ -4,7 +4,7 @@ gem to generate ror app from mind map
 
 ## Warning
 
-* under development, not ready yet
+* under heavy development, not ready yet
 
 ## Convention
 
@@ -23,12 +23,12 @@ And then execute:
 
     $ bundle
 
-Then
+Then generate and seed, which will create initial user admin:secret
 
     $ rails generate mindapp:install
-    $ rake db:seed, will create initial user admin:secret
+    $ rake db:seed
 
-When make changes to app/mindapp/index.mm, run
+Your app is now ready at http://localhost:3000/. When make changes to app/mindapp/index.mm, run
 
     $ rake mindapp:update
 
