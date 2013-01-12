@@ -2,13 +2,13 @@
 class Param
   include Mongoid::Document
   validates_uniqueness_of :code
-  # Mindapp begin
+  # mindapp begin
   include Mongoid::Timestamps
   field :code, :type => String
   field :pid, :type => String
   field :yearly, :type => Boolean
   field :description, :type => String
-  # Mindapp end
+  # mindapp end
 
   def self.get(code)
     p= where(:code=> code).first

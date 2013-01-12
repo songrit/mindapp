@@ -73,7 +73,7 @@ module Mindapp
         end
         initializer "mindapp.rb" do
 %q{# encoding: utf-8
-
+MM = "#{Rails.root}/app/mindapp/index.mm"
 DEFAULT_TITLE = 'Mindapp'
 DEFAULT_HEADER = 'Mindapp'
 GMAP = true
