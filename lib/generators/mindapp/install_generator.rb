@@ -119,7 +119,6 @@ end
       def setup_app
         inside("public") { run "mv index.html index.html.bak" }
         inside("app/views/layouts") { run "mv application.html.erb application.html.erb.bak" }
-        inside("app/helpers") { run "mv application_helper.rb application_helper.rb.bak" }
         inside("app/assets/javascripts") { run "mv application.js application.js.bak" }
         inside("app/assets/stylesheets") { run "mv application.css application.css.bak" }
         directory "app"
