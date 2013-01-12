@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Mindapp::Notice
   include Mongoid::Document
   include Mongoid::Timestamps

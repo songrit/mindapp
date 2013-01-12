@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Mindapp::Module
   include Mongoid::Document
   field :uid, :type => String
