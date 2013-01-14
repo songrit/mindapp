@@ -2,6 +2,9 @@ module Mindapp
   module Helpers
 
     # methods from application_controller
+    def b(s)
+      "<b>#{s}</b>".html_safe
+    end
     def code_text(s) # old def code(s)
       "<pre style='background-color: #efffef;'><code class='ruby' lang='ruby'>#{s}</code></pre>".html_safe
     end

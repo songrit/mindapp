@@ -10,7 +10,7 @@
         = render "/mindapp/menu_mm"
         - if login?
           %li
-            %a{:href=>"/mindapp/pending", "data-rel"=>"dialog", "data-panel" => "main"} Pending Jobs
+            %a{:href=>"/mindapp/pending", "data-rel"=>"dialog", "data-panel" => "main"} Pending Tasks
           %li
             %a{"data-panel" => "main", :href => logout_path, "data-ajax"=>"false"} Sign Out
         - else

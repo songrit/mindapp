@@ -24,7 +24,7 @@
           - url= "/mindapp/init/#{s.module_code}/#{s.code}"
         - if s.confirm
           %li
-            %a{"data-panel"=>"main", :onclick=>"if (confirm('กรุณายืนยัน')) {location.hash='#{url}'};"}= name
+            %a{"data-panel"=>"main", :onclick=>"if (confirm('Please Confirm')) {location.hash='#{url}'};"}= name
         - else
           %li
             %a{"data-panel"=>"main", :href=> url}= name
