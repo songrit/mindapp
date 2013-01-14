@@ -27,7 +27,9 @@ class MindappController < ApplicationController
     render :text=> "<script>#{js}</script>"
   end
   def init
-    @service= Mindapp::Service.where(:module_code=> params[:module], :code=> params[:service]).first
+    module_code, code = params[:s].split(":")
+    @service= Mindapp::Service.where(:module_code=> module_code, :code=> code).first
+    # @service= Mindapp::Service.where(:module_code=> params[:module], :code=> params[:service]).first
     if @service && authorize_init?
       xmain = create_xmain(@service)
       result = create_runseq(xmain)

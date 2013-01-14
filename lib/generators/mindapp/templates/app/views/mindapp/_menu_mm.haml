@@ -20,8 +20,7 @@
           - name, url = s.name.split(":", 2)
           - url.strip!
         - else
-          - name= s.name
-          - url= "/mindapp/init/#{s.module_code}/#{s.code}"
+          - name= s.name; url= "/mindapp/init?s=#{s.module_code}:#{s.code}"
         - if s.confirm
           %li
             %a{"data-panel"=>"main", :onclick=>"if (confirm('Please Confirm')) {location.hash='#{url}'};"}= name
