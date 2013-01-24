@@ -3,10 +3,10 @@ class MindappController < ApplicationController
   def index
   end
   def logs
-    @xmains = Mindapp::Xmain.all.desc(:created_at)
+    @xmains = Mindapp::Xmain.all.desc(:created_at).page(params[:page]).per(10)
   end
   def error_logs
-    @xmains = Mindapp::Xmain.in(status:['E']).desc(:created_at)
+    @xmains = Mindapp::Xmain.in(status:['E']).desc(:created_at).page(params[:page]).per(10)
   end
   def pending
     @xmains = Mindapp::Xmain.in(status:['R','I']).asc(:created_at)

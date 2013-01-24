@@ -19,6 +19,7 @@ module Mindapp
         gem 'bcrypt-ruby', '~> 3.0.0'
         gem 'omniauth-identity'
         gem 'cloudinary'
+        gem 'kaminari'
         gem_group :development, :test do
           gem "debugger"
           gem "rspec"
