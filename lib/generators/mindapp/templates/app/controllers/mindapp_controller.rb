@@ -5,6 +5,9 @@ class MindappController < ApplicationController
   def logs
     @xmains = Mindapp::Xmain.all.desc(:created_at)
   end
+  def error_logs
+    @xmains = Mindapp::Xmain.in(status:['E']).desc(:created_at)
+  end
   def pending
     @xmains = Mindapp::Xmain.in(status:['R','I']).asc(:created_at)
   end

@@ -1,4 +1,4 @@
-- @title= "Mindapp Logs"
+- @title= "Error Logs"
 %table{:id=>"pending-table", :width=>"100%"}
   %tr{:style=>"color:white; background-color:#97BF60;"}
     %th id
@@ -6,7 +6,7 @@
     %th step
     %th starter
     %th begin
-    %th status
+    %th message
   - @xmains.each do |xmain|
     - @xmain= xmain
     - next unless xmain.current_runseq
@@ -18,4 +18,4 @@
       %td= @runseq.name
       %td(align="center")= xmain.user.try :code
       %td= xmain.start.strftime("%c")
-      %td(align="center")= status_icon(xmain.status)
+      %td(style="width:50%")= xmain.xvars["error"]

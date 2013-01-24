@@ -10,7 +10,7 @@
       - if @xmain.status=='X'
         %td{:align=>'center'}= image_tag 'cancel.png'
       - else
-        %td{:align=>'center'}= status_icon(r)
+        %td{:align=>'center'}= status_icon(r.status)
       %td= r.name
       %td{:align=>'center'}
         - if r.role.blank? && @xvars[:action]
