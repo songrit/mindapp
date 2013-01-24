@@ -1,21 +1,6 @@
-<%#
-  doc = Doc.new :issue_on=> Date.today, :process_at => Time.now
-%>
-<%#= fields_for doc do |f| %>
-  <%#= f.label :rnum, "เลขที่ทะเบียนรับ" %>
-  <%#= f.text_field :rnum %>
-  <%#= f.label :confidential, "ชั้นความลับ" %>
-  <%#= f.select :confidential, [['ปรกติ',0],['ลับ',1],['ลับมาก',2],['ลับที่สุด',3]],{},"data-native-menu"=>"false" %>
-  <%#= f.label :issue_on, "ลงวันที่" %>
-  <%#= f.date_field :issue_on, "blackDays"=>[0,6] %>
-  <%#= f.label :summary, "สรุป" %>
-  <%#= f.text_area :summary, :cols=>50, :rows=>6 %>
-  <%#= f.label :dscan, "เอกสารสแกน" %>
-  <%#= f.file_field :dscan %>
-<%# end %>
-<%#= label_tag :hotel, "รหัสโรงแรม" %>
-<%#= text_field_tag :hotel %>
-<!--div>
-  <%#= label_tag :done1, "สิ้นสุดการบันทึกข้อมูล" %>
-  <%#= select_tag :done1, options_for_select([['ใช่', 'y'], ['ยังมีอีก', 'n']],'y'), 'data-role'=>"slider" %>
-</div-->
+<%= label_tag :epass, "Existing password" %>
+<%= password_field_tag :epass %>
+<%= label_tag :npass, "New password" %>
+<%= password_field_tag :npass %>
+<%= label_tag :npass_confirm, "New password confirmation" %>
+<%= password_field_tag :npass_confirm %>
