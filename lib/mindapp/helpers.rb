@@ -277,7 +277,7 @@ module Mindapp
       session[:user_id] != nil
     end
     def own_xmain?
-      if @xvars
+      if $xmain
         return $user.id==$xvars['user_id']
       else
         # if eval on first step would return true so user can start service
