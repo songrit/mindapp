@@ -1,0 +1,25 @@
+- @title= "Mindapp Logs"
+%table{:id=>"pending-table", :width=>"100%"}
+  %tr{:style=>"color:white; background-color:#97BF60;"}
+    %th id
+    %th task
+    %th step
+    %th starter
+    %th begin
+    %th status
+  - @xmains.each do |xmain|
+    - @xmain= xmain
+    - next unless xmain.current_runseq
+    - @runseq= Mindapp::Runseq.find(xmain.current_runseq)
+    - next unless @runseq
+    - next unless %w(form output pdf).include?(@runseq.action)
+    /- debugger
+    /- next if @xmain.runseqs.first==@xmain.current_runseq && @xmain.user!=current_user
+    /- next unless authorize?
+    %tr
+      %td= xmain.xid
+      %td= xmain.name
+      %td= @runseq.name
+      %td(align="center")= xmain.user.try :code
+      %td= date_thai xmain.start
+      %td(align="center")= status_icon(@runseq)
