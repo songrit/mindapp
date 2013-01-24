@@ -1,0 +1,8 @@
+<%
+  user = current_user
+%>
+<h3><%= user.code %></h3>
+<%= fields_for user do |f| %>
+  <%= f.label :email, "Email" %>
+  <%= f.text_field :email %>
+<% end %>

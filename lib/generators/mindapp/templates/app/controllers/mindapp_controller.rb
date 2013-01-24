@@ -339,14 +339,12 @@ class MindappController < ApplicationController
     # ma_log 'ERROR', 'main/err404'
     flash[:notice] = "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
     ma_log "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
-    # ma_notice "ขออภัย เกิดข้อผิดพลาดรหัส 404 ขึ้นในระบบ กรุณาติดต่อผู้ดูแลระบบ"
     redirect_to '/'
   end
   def err500
     # ma_log 'ERROR', 'main/err500'
     flash[:notice] = "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
     ma_log "We're sorry, but something went wrong. We've been notified about this issue and we'll take a look at it shortly."
-    # ma_notice "ขออภัย เกิดข้อผิดพลาดรหัส 500 ขึ้นในระบบ กรุณาติดต่อผู้ดูแลระบบ"
     redirect_to '/'
   end
 
