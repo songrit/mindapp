@@ -1,0 +1,7 @@
+<%
+  user = User.find_by :code=> $xvars["select_user"]["code"]
+%>
+Role codes seperated by comma
+<p>
+<%= label_tag :role, "Role" %>
+<%= text_field_tag :role, user.role %>

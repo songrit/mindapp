@@ -1,0 +1,4 @@
+<div class="field" data-role="fieldcontain">
+  <%= label_tag :code, 'User code' %>
+  <%= select_tag :code, options_from_collection_for_select(User.all.asc(:code), :code, :code), "data-native-menu"=>"false" %>
+</div>
