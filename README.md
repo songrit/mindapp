@@ -26,9 +26,12 @@ And then execute:
 Then generate and seed, which will create initial user admin:secret
 
     $ rails generate mindapp:install
+    $ bundle
     $ rake db:seed
 
-Your app is now ready at http://localhost:3000/. When make changes to app/mindapp/index.mm, run
+Your app is now ready at http://localhost:3000/.
+
+When make changes to app/mindapp/index.mm, run
 
     $ rake mindapp:update
 
