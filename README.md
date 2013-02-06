@@ -1,6 +1,13 @@
 # Mindapp
 
-I like to develop application using Ruby on Rails. I find that most of my projects has some common tasks such as basic design, user administration, logging, workflow, etc. So I decide to use mind map to act as a language to explain what I want and have the tool generates the application that conform to standard framework so I can then customize everything later on. Mind map is use in design phase where it generates models and controller, in execution phase where it controls the work flow, and also use to generate documentation. System Analyst could use mind map to communicate with technical team to align their requirements and help in development.
+I like to develop application using Ruby on Rails. I find that most of my projects has some common tasks such as basic design, user administration, logging, workflow, etc. So I decide to use mind map to act as a language to explain what I want and have the tool generates the application that conform to standard framework so I can then customize everything later on. Mind map is used in design phase where it generates models and controller, in execution phase where it controls the work flow, and also use to generate documentation. System Analyst could use mind map to communicate with technical team to align their requirements and help in development.
+
+## Prerequisites
+
+* Ruby
+* Rails
+* MongoDB
+* Freemind
 
 ## Convention
 
@@ -70,7 +77,10 @@ now the application is ready, start it as any Rails application
 
     $ rails server
 
-go to http://localhost:3000, click *Sign In* on the left menu, and enter user name *admin* and password *secret*
+go to http://localhost:3000, click *Sign In* on the left menu, and enter user name `admin` and password `secret`
+
+To create model, open file `app/mindapp/index.mm`
+![index.mm](http://songrit.googlecode.com/files/mm.png)
 
 
 ## Contributing
