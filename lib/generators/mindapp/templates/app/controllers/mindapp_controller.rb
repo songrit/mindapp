@@ -9,7 +9,7 @@ class MindappController < ApplicationController
     @xmains = Mindapp::Xmain.in(status:['E']).desc(:created_at).page(params[:page]).per(10)
   end
   def pending
-    @title= "Pending Jobs"
+    @title= "Pending Tasks"
     @xmains = Mindapp::Xmain.in(status:['R','I']).asc(:created_at)
   end
   def cancel

@@ -1,7 +1,7 @@
 # encoding: utf-8
 class SessionsController < ApplicationController
   def new
-    @title= 'เข้าใช้ระบบ'
+    @title= 'Sign In'
   end
 
   # to refresh the page, must know BEFOREHAND that the action needs refresh
