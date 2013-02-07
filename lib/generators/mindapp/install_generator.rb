@@ -79,8 +79,8 @@ DEFAULT_TITLE = 'Mindapp'
 DEFAULT_HEADER = 'Mindapp'
 GMAP = true
 NEXT = "Next >"
-# uncomment IMAGE_LOCATION to use cloudinary
-# IMAGE_LOCATION = "upload"
+# comment IMAGE_LOCATION to use cloudinary
+IMAGE_LOCATION = "upload"
 # for debugging
 # DONT_SEND_MAIL = true
 }
@@ -127,8 +127,9 @@ end
       def gen_user
         copy_file "seeds.rb","db/seeds.rb"
       end
-      def gen_sample_cloudinary
+      def gen_image_store
         copy_file "cloudinary.yml","config/cloudinary.yml"
+        empty_directory "upload" # create upload directory just in case
       end
     end
   end
