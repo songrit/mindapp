@@ -79,7 +79,10 @@ now the application is ready, start it as any Rails application
 
 go to http://localhost:3000, click *Sign In* on the left menu, and enter user name `admin` and password `secret`
 
+![home.mm](http://songrit.googlecode.com/files/home.png)
+
 Now open file `app/mindapp/index.mm` using Freemind
+
 ![index.mm](http://songrit.googlecode.com/files/mm.png)
 
 The 3 main branches are
@@ -143,6 +146,8 @@ To generate controller and views we save this mind map and run
 open file `app/views/products/add/enter.html.erb` you'll see some sample view already in there but commented. edit the file so it look like this
 
 ![enter](http://songrit.googlecode.com/files/enter.png)
+
+Note that we do not specify form_tag and submit_tag, these will be supplied by Mindapp.
 
 then open file `app/controllers/products_controller.rb` and edit to be as follow
 
