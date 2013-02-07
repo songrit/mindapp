@@ -79,7 +79,7 @@ DEFAULT_TITLE = 'Mindapp'
 DEFAULT_HEADER = 'Mindapp'
 GMAP = true
 NEXT = "Next >"
-# unset IMAGE_LOCATION to use cloudinary
+# uncomment IMAGE_LOCATION to use cloudinary
 # IMAGE_LOCATION = "upload"
 # for debugging
 # DONT_SEND_MAIL = true

@@ -256,8 +256,8 @@ class MindappController < ApplicationController
         :display=>true,
         :secured => @xmain.service.secured )
     if defined?(IMAGE_LOCATION)
-      file_name = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
-      File.open(file_name,"wb") { |f| f.puts(params.read) }
+      filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
+      File.open(filename,"wb") { |f| f.puts(params.read) }
       eval "@xvars[@runseq.code][key] = '#{url_for(:action=>'document', :id=>doc.id, :only_path => true )}' "
       doc.update_attributes :url => filename, :basename => File.basename(filename), :cloudinary => false
     else
@@ -277,8 +277,8 @@ class MindappController < ApplicationController
       :data_text=> '',
       :display=>true, :secured => @xmain.service.secured )
     if defined?(IMAGE_LOCATION)
-      file_name = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
-      File.open(file_name,"wb") { |f| f.puts(params.read) }
+      filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
+      File.open(filename,"wb") { |f| f.puts(params.read) }
       eval "@xvars[@runseq.code][key][key1] = '#{url_for(:action=>'document', :id=>doc.id, :only_path => true)}' "
       doc.update_attributes :url => filename, :basename => File.basename(filename), :cloudinary => false
     else
