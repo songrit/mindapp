@@ -4,10 +4,10 @@ I like to develop application using Ruby on Rails. I find that most of my projec
 
 ## Prerequisites
 
-* Ruby
-* Rails
+* Ruby 1.9
+* Rails 3.2
 * MongoDB
-* Freemind
+* Freemind 0.9
 
 ## Convention
 
@@ -79,8 +79,26 @@ now the application is ready, start it as any Rails application
 
 go to http://localhost:3000, click *Sign In* on the left menu, and enter user name `admin` and password `secret`
 
-To create model, open file `app/mindapp/index.mm`
+Now open file `app/mindapp/index.mm` using Freemind
 ![index.mm](http://songrit.googlecode.com/files/mm.png)
+
+The 3 main branches are
+
+* models - this defines all the models to use in the application
+* services - this defines services which will be come the menu on the left of the screen. There will be 2 levels; the first sub branch is the main menu (modules) and the second sub branch is the sub menu (services)
+* roles - this defines role for all users
+
+Fiirst, we need to create some product so we click on models we'll see 2 models person and address. These are sample only. You can delete them or modify them however you want. We'll take a look at them first
+
+![models](http://songrit.googlecode.com/files/models.png)
+
+The first sub branch (e.g. person) is the model name. According to Rails convention, this should be a singular word. The next sub branch are columns in the database. Let's take a look at each:
+
+* fname - this create a column (field) called fname which is a String by default
+* sex: integer - this create a column called sex, it is integer so must be explicity defined. The next sub branch (1: male) is disregarded by Mindapp so we can put whatever we want. Here I just put some reminder.
+* belongs_to :address - here we have this ![edit](http://songrit.googlecode.com/files/edit.png) icon. this means whatever text on this line will be added as is to the model Mindapp generates. You use this to specify anything you want such as  association, index, remarks in code, etc. according to mongoid gem. To draw the icon, rest mouse on the branch and hit <Alt-I>
+* dob: date - use any type that mongoid has
+* photo - for file field, just use String here. Mindapp will receive the binary file and store in file system or cloudinary then generate a link to it.
 
 
 ## Contributing
