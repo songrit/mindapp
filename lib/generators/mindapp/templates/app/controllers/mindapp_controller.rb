@@ -290,6 +290,7 @@ class MindappController < ApplicationController
   def doc_print
     render :file=>'public/doc.html', :layout=>'layouts/print'
   end
+  # generate documentation for application
   def doc
     require 'rdoc'
     @app= get_app
@@ -316,6 +317,22 @@ class MindappController < ApplicationController
         render :text=>'done'
       }
     end
+  end
+  # handle uploaded image
+  def document
+    doc = Mindapp::Doc.find params[:id]
+    if doc.cloudinary
+        require 'net/http'
+        require "uri"
+        uri = URI.parse(doc.url)
+        data = Net::HTTP.get_response(uri)
+        # require 'open-uri'
+        # data= open(doc.url)
+        send_data(data.body, :filename=>doc.filename, :type=>doc.content_type, :disposition=>"inline")
+    else
+        data= read_binary(doc.url)
+        send_data(data, :filename=>doc.filename, :type=>doc.content_type, :disposition=>"inline")
+      end
   end
   def status
     @xmain= Mindapp::Xmain.where(:xid=>params[:xid]).first
@@ -466,5 +483,8 @@ class MindappController < ApplicationController
     end
     @xmains = GmaXmain.find(@docs.map(&:ma_xmain_id)).sort { |a,b| b.id<=>a.id }
     # @xmains = GmaXmain.find @docs.map(&:created_at).sort { |a,b| b<=>a }
+  end
+  def read_binary(path)
+    File.open path, "rb" do |f| f.read end
   end
 end
