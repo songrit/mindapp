@@ -121,7 +121,8 @@ class MindappController < ApplicationController
     init_vars(params[:id])
     @runseq.start ||= Time.now
     @runseq.status= 'R' # running
-    $runseq_id= @runseq.id; $user_id= current_user.id
+    $runseq_id= @runseq.id
+    $user_id= current_user.try(:id)
     set_global
     controller = Kernel.const_get(@xvars['custom_controller']).new
     result = controller.send(@runseq.code)
@@ -326,8 +327,6 @@ class MindappController < ApplicationController
         require "uri"
         uri = URI.parse(doc.url)
         data = Net::HTTP.get_response(uri)
-        # require 'open-uri'
-        # data= open(doc.url)
         send_data(data.body, :filename=>doc.filename, :type=>doc.content_type, :disposition=>"inline")
     else
         data= read_binary(doc.url)
@@ -385,9 +384,11 @@ class MindappController < ApplicationController
       :xvars=> {
         :service_id=>service.id, :p=>params,
         :id=>params[:id],
-        :user_id=>current_user.id, :custom_controller=>custom_controller,
+        :user_id=>current_user.try(:id),
+        :custom_controller=>custom_controller,
         :host=>request.host,
-        :referer=>request.env['HTTP_REFERER'] }
+        :referer=>request.env['HTTP_REFERER'] 
+      }
   end
   def create_runseq(xmain)
     @xvars= xmain.xvars
@@ -448,7 +449,8 @@ class MindappController < ApplicationController
       @runseq.save
     end
     $xmain= @xmain; $xvars= @xvars
-    $runseq_id= @runseq.id; $user_id= current_user.id
+    $runseq_id= @runseq.id
+    $user_id= current_user.try(:id)
   end
   def init_vars_by_runseq(runseq_id)
     @runseq= Mindapp::Runseq.find runseq_id
