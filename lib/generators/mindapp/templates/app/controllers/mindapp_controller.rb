@@ -136,7 +136,7 @@ class MindappController < ApplicationController
     end_action
   rescue => e
     @xmain.status='E'
-    @xvars['error']= e.to_s
+    @xvars['error']= e.to_s+e.backtrace.to_s
     @xmain.xvars= $xvars
     @xmain.save
     @runseq.status= 'F' #finish

@@ -14,9 +14,9 @@
     - @runseq= Mindapp::Runseq.find(xmain.current_runseq)
     - next unless @runseq
     %tr
-      %td= xmain.xid
-      %td= xmain.name
-      %td= @runseq.name
-      %td(align="center")= xmain.user.try :code
-      %td= xmain.start.strftime("%c")
-      %td(style="width:50%")= xmain.xvars["error"]
+      %td(style='vertical-align:top;')= xmain.xid
+      %td(style='vertical-align:top;')= xmain.name
+      %td(style='vertical-align:top;')= @runseq.name
+      %td(align="center" style='vertical-align:top;')= xmain.user.try :code
+      %td(style='vertical-align:top;')= xmain.start.strftime("%c")
+      %td(style="vertical-align:top;width:40%")= truncate(xmain.xvars["error"], :length=> 100)

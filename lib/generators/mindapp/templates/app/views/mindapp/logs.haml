@@ -14,7 +14,7 @@
     - @runseq= Mindapp::Runseq.find(xmain.current_runseq)
     - next unless @runseq
     %tr
-      %td= xmain.xid
+      %td= link_to xmain.xid, "/mindapp/status?xid=#{xmain.xid}"
       %td= xmain.name
       %td= @runseq.name
       %td(align="center")= xmain.user.try :code

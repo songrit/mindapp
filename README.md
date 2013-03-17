@@ -4,6 +4,8 @@ I like to develop application using Ruby on Rails. I find that most of my projec
 
 ## Prerequisites
 
+These versions works for sure but others may do.
+
 * Ruby 1.9
 * Rails 3.2
 * MongoDB
@@ -12,10 +14,9 @@ I like to develop application using Ruby on Rails. I find that most of my projec
 ## Convention
 
 * database is MongoDB
-* images stored in or Cloudinary by default, set IMAGE_LOCATION in `initializer/mindapp.rb` to use file system
-* mail use Gmail SMTP, set up credential in `config/application.rb`
+* images stored in upload directory, unset IMAGE_LOCATION in `initializer/mindapp.rb` to use Cloudinary
+* mail use Gmail SMTP, config in `config/application.rb`
 * authentication use omniauth-identity
-* use Rspec for test
 
 ## Installation
 
@@ -23,7 +24,7 @@ Create Rails app without ActiveRecord
 
     $ rails new app --skip-test-unit --skip-bundle --skip-active-record
 
-Add this line to your application's Gemfile:
+Add this line to your Gemfile:
 
     gem 'mindapp'
 
@@ -40,10 +41,6 @@ Then generate and seed (you will be asked to overwrite `db/seeds.rb`) , which wi
 Your app is now ready at http://localhost:3000/.
 
     $ rails server
-
-When make changes to app/mindapp/index.mm, run
-
-    $ rake mindapp:update
 
 ## Sample Application
 
@@ -101,8 +98,8 @@ The first sub branch (e.g. person) is the model name. According to Rails convent
 
 * `fname` - this create a column (field) called fname which is a String by default
 * `sex: integer` - this create a column called sex, it is integer so must be explicity defined. The next sub branch (1: male) is disregarded by Mindapp so we can put whatever we want. Here I just put some reminder.
-* `belongs_to :address` - here we have ![edit](http://songrit.googlecode.com/files/edit.png) icon. this means whatever text on this line will be added as is to the model Mindapp generates. You use this to specify anything you want such as  association, index, remarks in code, etc. according to mongoid gem. To draw the icon, rest mouse on the branch and hit <Alt-I>
-* `dob: date` - use any type that mongoid has
+* `belongs_to :address` - here we have ![edit](http://songrit.googlecode.com/files/edit.png) icon. this means whatever text on this line will be added as is to the model Mindapp generates. You use this to specify anything you want such as  association, index, remarks in code, etc. according to mongoid gem. To draw the icon, rest mouse on the branch and hit &ltAlt-I&gt.
+* `dob: date` - use any type that mongoid provides.
 * `photo` - for file field, just use String here. Mindapp will receive the binary file and store in file system or cloudinary then generate a url link to it.
 
 In this example we just want a product model, so delete the person and address model and add a product branch like so
@@ -113,23 +110,23 @@ Save the mind map then run:
 
     rake mindapp:update
 
-This will create file `app/models/product.rb`. In this file, note the comment lines   `# mindapp begin` and ` # mindapp end`. Everything inside these comments will get overwritten according to the mind map so if you need to put anything inside here, use the mind map instead. You can add any thing outside these comment lines which will be preserved when doing mindapp:update.
+This will create file `app/models/product.rb`. In this file, note the comment lines   `# mindapp begin` and ` # mindapp end`. Everything inside these comments will get overwritten when you change the models branch in the mind map so if you need to put anything inside here, use the mind map instead. You can add anything outside these comment lines which will be preserved when doing mindapp:update.
 
 ### services
 
-Next we'll add some product into the database, we'll first take a look at the services branch, which already has 3 sub branches; users, admins, and devs. Unlike models person and address, these branches are used by the system so I suggest that you don't delete them. Let's open the users branch
+Next we'll add some product into the database, we'll first take a look at the services branch, which already has 3 sub branches; users, admins, and devs. Unlike models person and address branches, these branches are actively used by the system so I recommend that you leave them alone. Let's open the users branch
 
 ![users](http://songrit.googlecode.com/files/users.png)
 
 The text `users:User` on the sub branch has these implications:
 
 * `users` correspond to `app/controllers/users_controller.rb` which already exist when you do rails generate mindapp:install. New branch will create new controller if not exist. In Mindapp term, this will be called module.
-* `User` will create entry in main menu on the left of the screen
+* `User` will create entry in main menu on the left of the screen. You don't see it in the screenshot above because it's controlled by the sub branch `role:m` which means this menu only available for login member. If you already signed in as admin, you should see it now.
 
-The next sub branch has the following:
+The next sub branches has the following:
 
-* `role: m` - means that this whole module (menu) is available only to user who has role m (if you open the role branch now will see that role m is member). All registered user has role m by default. User who is not log on would not be able to access this module.
-* `link:info: /users` - means that this is a link, the format is link: *submenu label* : *url* where submenu label is the text to show in the submenu and url is the link to go to, in this case, it woud go to http://localhost:3000/users which will perform action index of users_controller.
+* `role: m` - means that this module (menu) is available only to user who has role m (if you open the role branch now will see that role m is member). All registered user has role m by default. User who is not log on would not be able to access this module.
+* `link:info: /users` - means that this is a link, the format is link: *submenu label* : *url* where submenu label is the text to show in the submenu and url is the link to go to, in this case, it woud go to http://localhost:3000/users which will perform index action of UsersController.
 * `user:edit` the branch that do not start with role:, rule:, nor link: will be a Mindapp service. You will then specify the sequence of the execution as in this example there are 3 sub branches - enter_user, update_user, and rule:login? Let's take a look at them:
 
 * `enter_user:edit` - the first step is to display a form to input user information, this is accompanied by icon ![attach](http://songrit.googlecode.com/files/attach.png) which means user interface screen. and will correspond to a view file `app/views/users/user/enter_user.html.erb` where `/users` comes from the module name (the sub branch of services), `/user` comes from the service name (the sub branch of users), and `enter_user.html.erb` comes from the first part of this branch. The `edit` after the colon is just a description of this step. This branch also has sub branch `rule:login? && own_xmain?` which specify rule for this step that the user must be login and can continue this task if he is the one who started it. *task* in here means each instance of service.
@@ -149,7 +146,7 @@ open file `app/views/products/add/enter.html.erb` you'll see some sample view al
 
 Note that we do not specify form_tag and submit_tag, these will be supplied by Mindapp.
 
-then open file `app/controllers/products_controller.rb` and edit to be as follow
+then open file `app/controllers/products_controller.rb` and add `create` method as follow. The method name has to be correspond to the ![bookmark](http://songrit.googlecode.com/files/bookmark.png) branch.
 
 ![products_controller](http://songrit.googlecode.com/files/products_controller.png)
 
