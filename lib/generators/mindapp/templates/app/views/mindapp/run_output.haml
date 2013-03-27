@@ -1,0 +1,38 @@
+.head
+  - @title= @xmain.name
+  = step(@runseq.form_step, @xvars['total_form_steps'])
+  #title(style='text-align:right;')= "คลิ้กข้อความ '#{@runseq.name}' เพื่อจัดพิมพ์เอกสาร"
+  %p
+  =javascript_include_tag "disable_enter_key"
+= form_tag({ :action => 'end_output' } , {:multipart => true, :onKeyPress=>'return disableEnterKey(event)', :class=>'formtastic'}) do
+  = hidden_field_tag 'xmain_id', @xmain.id
+  = hidden_field_tag 'runseq_id', @runseq.id
+  = hidden_field_tag 'step', @xvars[:current_step]
+  #output_link
+    = link_to @runseq.name, url_for(:controller=>'mindapp', :action=>'document', :id=>@doc.id), :target=>'_blank'
+  %p
+  .label
+    = image_tag "cog.png"
+    = t "documents"
+  %table{:width=>"100%"}
+    %tr{:style=>"color:white; background-color:#6A6A6A;"}
+      %th= t "id"
+      %th= t "document"
+      %th= t "file name"
+      %th= t "user"
+      %th= t "date"
+    - @xmain.docs.each do |doc|
+      - next unless doc.display
+      %tr
+        %td= doc.id
+        %td
+          - if doc.content_type=='output'
+            = image_tag 'page_output.png'
+          - else
+            = image_tag 'page_attach.png'
+          = link_to align_text(doc.name), "/engine/document/#{doc.id}", :target=>'_blank'
+        %td= doc.filename
+        %td= doc.user.name
+        %td= date_thai doc.updated_at
+  = submit_tag @message
+%p
