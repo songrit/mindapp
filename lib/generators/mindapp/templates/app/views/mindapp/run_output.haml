@@ -30,7 +30,7 @@
             = image_tag 'page_output.png'
           - else
             = image_tag 'page_attach.png'
-          = link_to align_text(doc.name), "/engine/document/#{doc.id}", :target=>'_blank'
+          = link_to_blank align_text(doc.name), :controller=>"mindapp", :action=>:document, :id=>doc.id
         %td= doc.filename
         %td= doc.user.name
         %td= date_thai doc.updated_at

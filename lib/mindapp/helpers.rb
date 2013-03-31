@@ -5,6 +5,9 @@ module Mindapp
     def b(s)
       "<b>#{s}</b>".html_safe
     end
+    def link_to_blank(body, url_options = {}, html_options = {})
+      link_to(body, url_options, html_options.merge(target: "_blank"))
+    end
     def code_text(s) # old def code(s)
       "<pre style='background-color: #efffef;'><code class='ruby' lang='ruby'>#{s}</code></pre>".html_safe
     end
