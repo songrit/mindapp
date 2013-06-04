@@ -358,7 +358,7 @@ end
 
 class String
   def comment?
-    self[0]==35 # check if first char is #
+    self[0]=='#'
   end
   def to_code
     s= self.dup

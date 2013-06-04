@@ -25,7 +25,7 @@ module Mindapp
           gem "rspec"
           gem "rspec-rails"
           gem "better_errors"
-          gem "binding_of_caller"
+          gem "binding_of_caller", :platform => "ruby"
         end
       end
 
