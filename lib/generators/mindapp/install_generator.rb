@@ -10,7 +10,7 @@ module Mindapp
         # gem "rmagick", :require => "RMagick", :platform => "ruby"
         gem 'haml-rails'
         gem "mail"
-        gem "prawn"
+        # gem "prawn"
         # bug in mongo ruby driver 1.6.1, wait for mongoid 2.4.7
         gem "mongo", "1.5.1"
         gem "bson_ext", "1.5.1"
