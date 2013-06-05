@@ -5,29 +5,6 @@ module Mindapp
       def self.source_root
         File.dirname(__FILE__) + "/templates"
       end
-      def setup_gems
-        gem "nokogiri" # use for mindapp/doc
-        # gem "rmagick", :require => "RMagick", :platform => "ruby"
-        gem 'haml-rails'
-        gem "mail"
-        # gem "prawn"
-        # bug in mongo ruby driver 1.6.1, wait for mongoid 2.4.7
-        gem "mongo", "1.5.1"
-        gem "bson_ext", "1.5.1"
-        gem "mongoid"
-        gem "redcarpet"
-        gem 'bcrypt-ruby', '~> 3.0.0'
-        gem 'omniauth-identity'
-        gem 'cloudinary'
-        gem 'kaminari'
-        gem_group :development, :test do
-          gem "debugger"
-          gem "rspec"
-          gem "rspec-rails"
-          gem "better_errors"
-          gem "binding_of_caller", :platform => "ruby"
-        end
-      end
 
       def setup_routes
         route "root :to => 'mindapp#index'"
@@ -43,9 +20,13 @@ module Mindapp
 
       def setup_env
         create_file 'README.md', ''
+        # bug in mongo ruby driver 1.6.1, wait for mongoid 2.4.7
+        gem "mongo", "1.5.1"
+        gem "bson_ext", "1.5.1"
+        gem "mongoid"
         run "bundle install"
         generate "mongoid:config"
-        generate "rspec:install"
+        # generate "rspec:install"
         inject_into_file 'config/application.rb', :after => 'require "active_resource/railtie"' do
           "\nrequire 'mongoid/railtie'\n"
           "\nrequire 'rexml/document'\n"
@@ -124,13 +105,36 @@ end
         inside("app/assets/stylesheets") { run "mv application.css application.css.bak" }
         directory "app"
       end
+
       def gen_user
         copy_file "seeds.rb","db/seeds.rb"
       end
+
       def gen_image_store
         copy_file "cloudinary.yml","config/cloudinary.yml"
         empty_directory "upload" # create upload directory just in case
       end
+
+      def setup_gems
+        gem "nokogiri" # use for mindapp/doc
+        # gem "rmagick", :require => "RMagick", :platform => "ruby"
+        gem 'haml-rails'
+        gem "mail"
+        gem "prawn"
+        gem "redcarpet"
+        gem 'bcrypt-ruby', '~> 3.0.0'
+        gem 'omniauth-identity'
+        gem 'cloudinary'
+        gem 'kaminari'
+        gem_group :development, :test do
+          gem "debugger"
+          gem "rspec"
+          gem "rspec-rails"
+          gem "better_errors"
+          gem "binding_of_caller"
+        end
+      end
+
     end
   end
 end
