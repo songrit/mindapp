@@ -70,7 +70,7 @@ class MindappController < ApplicationController
       else
         service= @xmain.service
         if service
-          @title= "รหัสดำเนินการ #{@xmain.xid}: #{@xmain.name} / #{@runseq.name}"
+          @title= "Transaction ID #{@xmain.xid}: #{@xmain.name} / #{@runseq.name}"
           fhelp= "app/views/#{service.module.code}/#{service.code}/#{@runseq.code}.md"
           @help = File.read(fhelp) if File.exists?(fhelp)
           f= "app/views/#{service.module.code}/#{service.code}/#{@runseq.code}.html.erb"
