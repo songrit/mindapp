@@ -239,8 +239,8 @@ module Mindapp
       Mindapp::Service.not_in(:uid=>protected_services).delete_all
     end
     def get_app
-      # dir= "#{Rails.root}/app/mindapp"
       f= MM || "#{Rails.root}/app/mindapp/index.mm"
+      dir= File.dirname(s)
       t= REXML::Document.new(File.read(MM).gsub("\n","")).root
       recheck= true ; first_pass= true
       while recheck

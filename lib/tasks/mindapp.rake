@@ -2,8 +2,8 @@ require 'mindapp'
 require 'mindapp/helpers'
 include Mindapp::Helpers
 
-@@btext= "# mindapp begin"
-@@etext= "# mindapp end"
+@btext= "# mindapp begin"
+@etext= "# mindapp end"
 
 namespace :mindapp do
   desc "generate models from mm"
@@ -97,14 +97,14 @@ end
   end
 
   def add_mindapp(doc, attr_hash)
-    if doc =~ /#{@@btext}/
-      s1,s2,s3= doc.partition(/  #{@@btext}.*#{@@etext}\n/m)
+    if doc =~ /#{@btext}/
+      s1,s2,s3= doc.partition(/  #{@btext}.*#{@etext}\n/m)
       s2= ""
     else
       s1,s2,s3= doc.partition("include Mongoid::Document\n")
     end
     doc= s1+s2+ <<-EOT
-  #{@@btext}
+  #{@btext}
   include Mongoid::Timestamps
   EOT
     attr_hash.each do |a|
@@ -115,7 +115,7 @@ end
         doc += "  field :#{a[:code]}, :type => #{a[:type].capitalize}\n"
       end
     end
-    doc += "  #{@@etext}\n"
+    doc += "  #{@etext}\n"
     doc + s3
   end
 
