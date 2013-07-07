@@ -240,7 +240,7 @@ module Mindapp
     end
     def get_app
       f= MM || "#{Rails.root}/app/mindapp/index.mm"
-      dir= File.dirname(s)
+      dir= File.dirname(f)
       t= REXML::Document.new(File.read(MM).gsub("\n","")).root
       recheck= true ; first_pass= true
       while recheck
