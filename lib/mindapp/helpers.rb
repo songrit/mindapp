@@ -1,6 +1,7 @@
 module Mindapp
   module Helpers
-
+    require "rexml/document"
+    include REXML
     # methods from application_controller
     def b(s)
       "<b>#{s}</b>".html_safe

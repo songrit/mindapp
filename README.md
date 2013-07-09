@@ -26,7 +26,7 @@ Create Rails app without ActiveRecord
 
 Add this line to your Gemfile:
 
-    gem 'mindapp'
+    gem 'mindapp', :git=> "git@github.com:songrit/mindapp.git"
 
 you may also need to enable gem `therubyracer` as well, then execute:
 
@@ -65,6 +65,8 @@ generate mindapp application
     $ rails generate mindapp:install
 
 it will ask to overwrite the seeds.rb file, enter y, then run bundle again to install additional gems added by mindapp
+
+    $ bundle
 
 The next step is create admin user
 
