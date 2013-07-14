@@ -102,7 +102,7 @@ module Mindapp
       end
     end
 
-    alias :notice, :ma_log
+    alias :notice :ma_log
 
     # methods from application_helper
     def markdown(text)
