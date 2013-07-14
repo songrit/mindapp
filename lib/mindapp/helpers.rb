@@ -102,7 +102,7 @@ module Mindapp
       end
     end
 
-    alias :notice :ma_log
+    alias :ma_notice :ma_log
 
     # methods from application_helper
     def markdown(text)
@@ -289,7 +289,7 @@ module Mindapp
     end
     def own_xmain?
       if $xmain
-        return $user.id==$xvars['user_id']
+        return current_user.id==$xvars['user_id']
       else
         # if eval on first step would return true so user can start service
         return true
