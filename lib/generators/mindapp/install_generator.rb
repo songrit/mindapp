@@ -78,7 +78,7 @@ IMAGE_LOCATION = "upload"
           "\n  config.assets.compile = true"
         end
         inject_into_file 'config/mongoid.yml', :after => '  # raise_not_found_error: true' do
-          "\n  raise_not_found_error: false"
+          "\n    raise_not_found_error: false"
         end
       end
 

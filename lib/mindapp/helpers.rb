@@ -93,9 +93,16 @@ module Mindapp
       end
     end
     def ma_log(message)
-      Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
-        :user_id => $user.id, :unread=> true
+      if $user
+        Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
+          :user_id => $user.id, :unread=> true
+      else
+        Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
+          :unread=> true
+      end
     end
+
+    alias :notice, :ma_log
 
     # methods from application_helper
     def markdown(text)
