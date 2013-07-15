@@ -392,7 +392,7 @@ module ActionView
 #        self.date_select method, :use_month_names=>THAI_MONTHS, :order=>[:day, :month, :year]
 #      end
       def date_field(method, options = {})
-        default= self.object.send(method) || Date.today
+        default= options[:default]  || self.object.send(method) || Date.today
         data_options= ({"mode"=>"calbox"}).merge(options)
         out= %Q(<input name='#{self.object_name}[#{method}]' id='#{self.object_name}_#{method}' value='#{default.strftime("%F")}' type='date' data-role='datebox' data-options='#{data_options.to_json}'>)
         out.html_safe
