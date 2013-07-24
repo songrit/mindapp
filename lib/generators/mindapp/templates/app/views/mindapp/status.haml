@@ -57,5 +57,5 @@
           = image_tag 'page_attach.png'
         = link_to align_text(doc.name), "/engine/document/#{doc.id}", :target=>'_blank'
       %td= doc.filename
-      %td= doc.ma_user.full_name
+      %td= doc.user.try(:full_name)
       %td= date_thai doc.created_at

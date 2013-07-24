@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Mindapp
   module Helpers
     require "rexml/document"
@@ -5,6 +6,23 @@ module Mindapp
     # methods from application_controller
     def b(s)
       "<b>#{s}</b>".html_safe
+    end
+    def date_thai(d= Time.now, options={})
+      unless d
+        ""
+      else
+        y = d.year+543
+        if options[:monthfull] || options[:month_full]
+          mh= ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฏาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม']
+        else
+          mh= ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.']
+        end
+        if options[:dateonly] || options[:date_only]
+          d.day.to_s+" "+mh[d.month-1]+" "+y.to_s
+        else
+          d.day.to_s+" "+mh[d.month-1]+" "+y.to_s+" เวลา "+sprintf("%02d",d.hour.to_s)+":"+sprintf("%02d",d.min.to_s)
+        end
+      end
     end
     def link_to_blank(body, url_options = {}, html_options = {})
       link_to(body, url_options, html_options.merge(target: "_blank"))
