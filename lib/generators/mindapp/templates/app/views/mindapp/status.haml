@@ -21,21 +21,21 @@
             %td{:align=>'center'} -
           - else
             - if r.start
-              %td= date_thai r.start
+              %td= r.start.strftime('%c')
             - else
               %td{:align=>'center'} -
             - if r.stop
-              %td= date_thai r.stop
+              %td= r.stop.strftime('%c')
             - else
               %td{:align=>'center'} -
         - else
           = role_name r.role
           - if r.start
-            %td= date_thai r.start
+            %td= r.start.strftime('%c')
           - else
             %td{:align=>'center'} -
           - if r.stop
-            %td= date_thai r.stop
+            %td= r.stop.strftime('%c')
           - else
             %td{:align=>'center'} -
 .label
@@ -58,4 +58,4 @@
         = link_to align_text(doc.name), "/engine/document/#{doc.id}", :target=>'_blank'
       %td= doc.filename
       %td= doc.user.try(:full_name)
-      %td= date_thai doc.created_at
+      %td= doc.created_at.strftime('%c')
