@@ -1,10 +1,10 @@
 %table{:width=>"100%"}
   %tr{:style=>"color:white; background-color:#6A6A6A;"}
-    %th status
-    %th step
-    %th starter
-    %th begin
-    %th end
+    %th Status
+    %th Step
+    %th Starter
+    %th Begin
+    %th End
   - @xmain.runseqs.form_action.each do |r|
     %tr
       - if @xmain.status=='X'
@@ -40,13 +40,13 @@
             %td{:align=>'center'} -
 .label
   = image_tag "cog.png"
-  เอกสารประกอบ
+  Document
 %table{:width=>"100%"}
   %tr{:style=>"color:white; background-color:#6A6A6A;"}
-    %th เอกสาร
-    %th ชื่อไฟล์
-    %th ผู้ดำเนินการ
-    %th วันที่
+    %th Document
+    %th Name
+    %th User
+    %th Date
   - @xmain.docs.each do |doc|
     - next unless doc.display
     %tr
