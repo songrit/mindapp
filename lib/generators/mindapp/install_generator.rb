@@ -21,10 +21,10 @@ module Mindapp
       def setup_env
         create_file 'README.md', ''
         # bug in mongo ruby driver 1.6.1, wait for mongoid 2.4.7
-        gem "mongo", "1.5.1"
-        gem "bson_ext", "1.5.1"
-        gem "mongoid"
-        run "bundle install"
+        # gem "mongo", "1.5.1"
+        # gem "bson_ext", "1.5.1"
+        # gem "mongoid"
+        # run "bundle install"
         generate "mongoid:config"
         # generate "rspec:install"
         inject_into_file 'config/application.rb', :after => 'require "active_resource/railtie"' do
@@ -116,23 +116,23 @@ end
       end
 
       def setup_gems
-        gem "nokogiri" # use for mindapp/doc
-        # gem "rmagick", :require => "RMagick", :platform => "ruby"
-        gem 'haml-rails'
-        gem "mail"
-        gem "prawn"
-        gem "redcarpet"
-        gem 'bcrypt-ruby', '~> 3.0.0'
-        gem 'omniauth-identity'
-        gem 'cloudinary'
-        gem 'kaminari'
-        gem_group :development, :test do
-          gem "debugger"
-          gem "rspec"
-          gem "rspec-rails"
-          gem "better_errors"
-          gem "binding_of_caller"
-        end
+        # gem "nokogiri" # use for mindapp/doc
+        # # gem "rmagick", :require => "RMagick", :platform => "ruby"
+        # gem 'haml-rails'
+        # gem "mail"
+        # gem "prawn"
+        # gem "redcarpet"
+        # gem 'bcrypt-ruby', '~> 3.0.0'
+        # gem 'omniauth-identity'
+        # gem 'cloudinary'
+        # gem 'kaminari'
+        # gem_group :development, :test do
+        #   gem "debugger"
+        #   gem "rspec"
+        #   gem "rspec-rails"
+        #   gem "better_errors"
+        #   gem "binding_of_caller"
+        # end
       end
 
     end
