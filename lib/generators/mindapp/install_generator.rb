@@ -115,26 +115,6 @@ end
         empty_directory "upload" # create upload directory just in case
       end
 
-      def setup_gems
-        # gem "nokogiri" # use for mindapp/doc
-        # # gem "rmagick", :require => "RMagick", :platform => "ruby"
-        # gem 'haml-rails'
-        # gem "mail"
-        # gem "prawn"
-        # gem "redcarpet"
-        # gem 'bcrypt-ruby', '~> 3.0.0'
-        # gem 'omniauth-identity'
-        # gem 'cloudinary'
-        # gem 'kaminari'
-        # gem_group :development, :test do
-        #   gem "debugger"
-        #   gem "rspec"
-        #   gem "rspec-rails"
-        #   gem "better_errors"
-        #   gem "binding_of_caller"
-        # end
-      end
-
     end
   end
 end

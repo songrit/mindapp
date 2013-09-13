@@ -25,7 +25,7 @@ class MindappController < ApplicationController
       redirect_to action:"pending"
   end
   def ajax_notice
-    if notice=Mindapp::Notice.recent(current_user)
+    if notice=Mindapp::Notice.recent(current_user, env["REMOTE_ADDR"])
       notice.update_attribute :unread, false
       js = "notice('#{notice.message}');"
     else
@@ -388,7 +388,7 @@ class MindappController < ApplicationController
         :user_id=>current_user.try(:id),
         :custom_controller=>custom_controller,
         :host=>request.host,
-        :referer=>request.env['HTTP_REFERER'] 
+        :referer=>request.env['HTTP_REFERER']
       }
   end
   def create_runseq(xmain)

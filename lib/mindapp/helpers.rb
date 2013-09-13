@@ -113,10 +113,10 @@ module Mindapp
     def ma_log(message)
       if $user
         Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
-          :user_id => $user.id, :unread=> true
+          :user_id => $user.id, :unread=> true, :ip=> env["REMOTE_ADDR"]
       else
         Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
-          :unread=> true
+          :unread=> true, :ip=> env["REMOTE_ADDR"]
       end
     end
 
