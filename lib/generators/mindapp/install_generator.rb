@@ -107,7 +107,7 @@ end
       end
 
       def gen_user
-        copy_file "seeds.rb","db/seeds.rb"
+        # copy_file "seeds.rb","db/seeds.rb"
       end
 
       def gen_image_store
@@ -116,6 +116,9 @@ end
       end
 
       def setup_gems
+        gem "mongo", '1.5.1'
+        gem "bson_ext", '1.5.1'
+        gem "mongoid"
         gem "nokogiri" # use for mindapp/doc
         gem "rmagick", :require => "RMagick", :platform => "ruby"
         gem 'haml-rails'

@@ -36,7 +36,7 @@ Then generate and seed (you will be asked to overwrite `db/seeds.rb`) , which wi
 
     $ rails generate mindapp:install
     $ bundle
-    $ rake db:seed
+    $ rake mindapp:seed
 
 Your app is now ready at http://localhost:3000/.
 
