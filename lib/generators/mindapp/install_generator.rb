@@ -138,6 +138,10 @@ end
         end
       end
 
+      def finish
+        puts "Mindapp installation finish, please run bundle install again to install addiitional gems."
+      end
+
     end
   end
 end

@@ -70,7 +70,7 @@ it will ask to overwrite the seeds.rb file, enter y, then run bundle again to in
 
 The next step is create admin user
 
-    $ rake db:seed
+    $ rake mindapp:seed
 
 now the application is ready, start it as any Rails application
 
