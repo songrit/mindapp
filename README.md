@@ -64,7 +64,7 @@ generate mindapp application
 
     $ rails generate mindapp:install
 
-it will ask to overwrite the seeds.rb file, enter y, then run bundle again to install additional gems added by mindapp
+Then run bundle again to install additional gems added by mindapp
 
     $ bundle
 
