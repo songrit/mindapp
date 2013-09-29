@@ -238,7 +238,11 @@ class MindappController < ApplicationController
       if @xvars['p']['return']
         redirect_to @xvars['p']['return'] and return
       else
-        redirect_to :action=>'pending' and return
+        if @user
+          redirect_to :action=>'pending' and return
+        else
+          redirect_to_root and return
+        end
       end
     else
       @xmain.update_attribute :current_runseq, next_runseq.id
