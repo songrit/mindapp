@@ -8,6 +8,7 @@ class Mindapp::Notice
   belongs_to :user
 
   def self.recent(user_id, ip)
-    where(unread: true, user_id: user_id, ip: ip).last
+    where(unread: true, ip: ip).last
+    # where(unread: true, user_id: user_id, ip: ip).last
   end
 end

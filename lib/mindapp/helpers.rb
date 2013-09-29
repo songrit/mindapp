@@ -74,7 +74,7 @@ module Mindapp
       %w(call ws redirect invoke email).include? s
     end
     def set_global
-      $xmain= @xmain ; $runseq = @runseq ; $user = current_user ; $xvars= @xmain.xvars
+      $xmain= @xmain ; $runseq = @runseq ; $user = current_user ; $xvars= @xmain.xvars; $ip = env["REMOTE_ADDR"]
     end
     def authorize? # use in pending tasks
       @runseq= @xmain.runseqs.find @xmain.current_runseq
@@ -111,13 +111,15 @@ module Mindapp
       end
     end
     def ma_log(message)
-      if current_user
         Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
-          :user_id => $user.id, :unread=> true, :ip=> env["REMOTE_ADDR"]
-      else
-        Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
-          :unread=> true, :ip=> env["REMOTE_ADDR"]
-      end
+          :unread=> true, :ip=> ($ip || env["REMOTE_ADDR"])
+      # if session[:user_id]
+      #   Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
+      #     :user_id => $user.id, :unread=> true, :ip=> env["REMOTE_ADDR"]
+      # else
+      #   Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
+      #     :unread=> true, :ip=> env["REMOTE_ADDR"]
+      # end
     end
 
     alias :ma_notice :ma_log
