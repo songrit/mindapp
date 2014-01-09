@@ -120,7 +120,7 @@ end
         gem "bson_ext", '1.5.1'
         gem "mongoid"
         gem "nokogiri" # use for mindapp/doc
-        gem "rmagick", :require => "RMagick", :platform => "ruby"
+        # gem "rmagick", :require => "RMagick", :platform => "ruby"
         gem 'haml-rails'
         gem "mail"
         gem "prawn"
