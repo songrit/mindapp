@@ -73,7 +73,8 @@ The next step is create admin user
     $ rake mindapp:seed
 
 now the application is ready, start it as any Rails application
-** Note ** if you have nokogiri error then you can comment it out in Gemfile. Nokogiri is used
+
+**Note** if you have nokogiri error then you can comment it out in Gemfile. Nokogiri is used
 for mindapp/doc only.
 
     $ rails server
