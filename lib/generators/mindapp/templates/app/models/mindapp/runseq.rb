@@ -19,6 +19,6 @@ class Mindapp::Runseq
   field :xml, :type => String
   field :ip, :type => String
 
-  scope :form_action, where(:action.in=> ['form','output','pdf'])
+  scope :form_action, ->{where(:action.in=> ['form','output','pdf'])}
 
 end

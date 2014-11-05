@@ -16,6 +16,7 @@ module Mindapp
         route "get '/auth/failure' => 'sessions#failure'"
         route "get '/logout' => 'sessions#destroy', :as => 'logout'"
         route "get ':controller(/:action(/:id))(.:format)'"
+        route "post ':controller(/:action(/:id))(.:format)'"
       end
 
       def setup_env
