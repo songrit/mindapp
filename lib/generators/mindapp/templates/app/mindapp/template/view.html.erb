@@ -4,8 +4,10 @@
 <%#= fields_for doc do |f| %>
   <%#= f.label :rnum, "Reference number" %>
   <%#= f.text_field :rnum %>
-  <%#= f.label :confidential, "Confidentiality" %>
-  <%#= f.select :confidential, [['normal',0],['secret',1],['top secret',2]],{},"data-native-menu"=>"false" %>
+  <!--div>
+    <%#= f.label :confidential, "Confidentiality" , :class=>"ui-input-text" %>
+    <%#= f.select :confidential, [['normal',0],['secret',1],['top secret',2]],{},"data-native-menu"=>"false" %>
+  </div-->
   <%#= f.label :issue_on, "Dated" %>
   <%#= f.date_field :issue_on, "blackDays"=>[0,6] %>
   <%#= f.label :summary, "Summary" %>
@@ -16,6 +18,6 @@
 <%#= label_tag :hotel, "Ungroup field" %>
 <%#= text_field_tag :hotel %>
 <!--div>
-  <%#= label_tag :done1, "Logic field" %>
+  <%#= label_tag :done1, "Logic field", :class=>"ui-input-text" %>
   <%#= select_tag :done1, options_for_select([['Yes', 'y'], ['No', 'n']],'y'), 'data-role'=>"slider" %>
 </div-->

@@ -18,9 +18,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.license  = 'MIT'
 
-  gem.add_dependency('mongo', '= 1.5.1')
-  gem.add_dependency('bson_ext', '= 1.5.1')
-  gem.add_dependency('mongoid')
+  # gem.add_dependency('mongo', '= 1.5.1')
+  # gem.add_dependency('bson_ext', '= 1.5.1')
+  # gem.add_dependency('mongoid')
+
   # gem.add_dependency('nokogiri') # for mindapp/doc
   # gem.add_dependency('haml-rails')
   # gem.add_dependency('mail')

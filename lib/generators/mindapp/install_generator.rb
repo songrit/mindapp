@@ -12,10 +12,10 @@ module Mindapp
 
         route "resources :identities"
         route "resources :sessions"
-        route "match '/auth/:provider/callback' => 'sessions#create'"
-        route "match '/auth/failure' => 'sessions#failure'"
-        route "match '/logout' => 'sessions#destroy', :as => 'logout'"
-        route "match ':controller(/:action(/:id))(.:format)'"
+        route "post '/auth/:provider/callback' => 'sessions#create'"
+        route "get '/auth/failure' => 'sessions#failure'"
+        route "get '/logout' => 'sessions#destroy', :as => 'logout'"
+        route "get ':controller(/:action(/:id))(.:format)'"
       end
 
       def setup_env
@@ -116,9 +116,13 @@ end
       end
 
       def setup_gems
-        gem "mongo", '1.5.1'
-        gem "bson_ext", '1.5.1'
-        gem "mongoid"
+        gem "mongo"
+        gem "bson_ext"
+        # gem "mongo", '1.5.1'
+        # gem "bson_ext", '1.5.1'
+        # for Rails 4
+        gem 'mongoid', '~> 4.0.0'
+        # gem "mongoid"
         gem "nokogiri" # use for mindapp/doc
         gem "rmagick", :require => "RMagick", :platform => "ruby"
         gem 'haml-rails'

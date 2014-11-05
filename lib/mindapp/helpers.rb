@@ -181,7 +181,7 @@ module Mindapp
     # methods that I don't know where they came from
     def current_user
       if session[:user_id]
-        return @user ||= User.find(session[:user_id])
+        return @user ||= User.find(session[:user_id]['$oid'])
       else
         return nil
       end
