@@ -25,7 +25,6 @@ module Mindapp
         # gem "bson_ext", "1.5.1"
         # gem "mongoid"
         # run "bundle install"
-        generate "mongoid:config"
         # generate "rspec:install"
         inject_into_file 'config/application.rb', :after => 'require "active_resource/railtie"' do
           "\nrequire 'mongoid/railtie'\n"
@@ -76,9 +75,6 @@ IMAGE_LOCATION = "upload"
         end
         inject_into_file 'config/environments/production.rb', :after => 'config.assets.compile = false' do
           "\n  config.assets.compile = true"
-        end
-        inject_into_file 'config/mongoid.yml', :after => '  # raise_not_found_error: true' do
-          "\n    raise_not_found_error: false"
         end
       end
 
@@ -143,7 +139,7 @@ end
       end
 
       def finish
-        puts "Mindapp installation finish, please run bundle install again to install addiitional gems."
+        puts "Mindapp installation finish, please run bundle install again to install additional gems. Then run rails generate mindapp:mongoid"
       end
 
     end
