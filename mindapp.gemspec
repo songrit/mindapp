@@ -6,10 +6,10 @@ require 'mindapp/version'
 Gem::Specification.new do |gem|
   gem.name          = "mindapp"
   gem.version       = Mindapp::VERSION
-  gem.authors       = ["songrit"]
+  gem.authors       = ["Korakot Leemakdej"]
   gem.email         = ["songrit@gmail.com"]
-  gem.description   = %q{generate Ruby on Rails app from mind map}
   gem.summary       = %q{generate Ruby on Rails app from mind map}
+  gem.description   = %q{generate Ruby on Rails app from mind map}
   gem.homepage      = "https://github.com/songrit/mindapp"
 
   gem.files         = `git ls-files`.split($/)
