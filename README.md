@@ -10,8 +10,8 @@ I like to develop application using Ruby on Rails. I find that most of my projec
 
 These versions works for sure but others may do.
 
-* Ruby 1.9
-* Rails 3.2
+* Ruby 2.1.1
+* Rails 4.2.0
 * MongoDB
 * Freemind 0.9
 
@@ -22,39 +22,16 @@ These versions works for sure but others may do.
 * mail use Gmail SMTP, config in `config/application.rb`
 * authentication use omniauth-identity
 
-## Installation
-
-Create Rails app without ActiveRecord
-
-    $ rails new app --skip-test-unit --skip-bundle --skip-active-record
-
-Add this line to your Gemfile:
-
-    gem 'mindapp', :git=> "git@github.com:songrit/mindapp.git"
-
-you may also need to enable gem `therubyracer` as well, then execute:
-
-    $ bundle
-
-Then generate and seed (you will be asked to overwrite `db/seeds.rb`) , which will create initial user admin:secret
-
-    $ rails generate mindapp:install
-    $ bundle
-    $ rake mindapp:seed
-
-Your app is now ready at http://localhost:3000/.
-
-    $ rails server
-
 ## Sample Application
 
-Supposed we want to create ecommerce web site
+Supposed we want to create ecommerce web site, first create a Rails
+app without ActiveRecord
 
     $ rails new shop --skip-test-unit --skip-bundle --skip-active-record
 
-edit Gemfile:
+add mindapp to your Gemfile:
 
-    gem 'mindapp', :git => "git://github.com/songrit/mindapp.git"
+    gem 'mindapp'
 
 depend on your operating system, you may need to uncomment
 
@@ -72,14 +49,15 @@ Then run bundle again to install additional gems added by mindapp
 
     $ bundle
 
+configure mongoid
+
+    $ rails generate mindapp:mongoid
+
 The next step is create admin user
 
     $ rake mindapp:seed
 
 now the application is ready, start it as any Rails application
-
-**Note** if you have nokogiri error then you can comment it out in Gemfile. Nokogiri is used
-for mindapp/doc only.
 
     $ rails server
 
