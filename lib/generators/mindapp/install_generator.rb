@@ -131,7 +131,6 @@ end
         gem 'cloudinary'
         gem 'kaminari'
         gem_group :development, :test do
-          gem "debugger"
           gem "rspec"
           gem "rspec-rails"
           gem "better_errors"
