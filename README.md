@@ -53,7 +53,7 @@ configure mongoid
 
     $ rails generate mindapp:mongoid
 
-The next step is create admin user
+    Please make sure mongod is running then create admin user
 
     $ rake mindapp:seed
 
