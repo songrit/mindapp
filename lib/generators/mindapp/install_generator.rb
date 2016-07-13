@@ -113,12 +113,13 @@ end
       end
 
       def setup_gems
-        gem "mongo"
-        gem "bson_ext"
+        gem "mongo", '~> 2.2'
+        gem "bson", '~> 4.0'
         # gem "mongo", '1.5.1'
         # gem "bson_ext", '1.5.1'
-        # for Rails 4
-        gem 'mongoid', '~> 4.0.0'
+        # gem 'mongoid', '~> 4.0.0'
+        # for Rails 5
+        gem 'mongoid', github: 'mongodb/mongoid'
         # gem "mongoid"
         gem "nokogiri" # use for mindapp/doc
         # gem "rmagick", :require => "RMagick", :platform => "ruby"
