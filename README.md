@@ -4,14 +4,14 @@ I like to develop application using Ruby on Rails. I find that most of my projec
 
 ## Changelog
 
-* v0.0.8 update for Rails 4
+* v0.0.8 update for Rails 5
 
 ## Prerequisites
 
 These versions works for sure but others may do.
 
-* Ruby 2.1.1
-* Rails 4.2.0
+* Ruby 2.3.0
+* Rails 5.0.0
 * MongoDB
 * Freemind 0.9
 
