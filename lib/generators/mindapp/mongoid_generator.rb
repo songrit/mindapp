@@ -9,7 +9,12 @@ module Mindapp
         end
       end
       def finish
-        puts "Mongoid configured, please run rake mindapp:seed to set up admin/secret user"
+        puts "Mongoid configured, please run rake mindapp:seed to set up admin/secret user, and may Set production:
+  clients:
+    default:
+      uri: <%= ENV['MONGODB_URI'] %> 
+      options: 
+        consistency: :strong"
       end
 
     end
