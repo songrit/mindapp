@@ -14,7 +14,7 @@ class Mindapp::Doc
   belongs_to :user
   belongs_to :service, :class_name => "Mindapp::Service"
   field :ip, :type => String
-  field :display, :type => Boolean
+  field :demontrate, :type => Boolean
   field :secured, :type => Boolean
 
   def self.search(q, page, per_page=PER_PAGE)
