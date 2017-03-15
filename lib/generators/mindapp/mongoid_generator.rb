@@ -8,12 +8,12 @@ module Mindapp
           "\n    raise_not_found_error: false"
         end  
         inject_into_file 'config/mongoid.yml', :after => '  # app_name: MyApplicationName' do
-          "\nproduction:\n"
-          "\n  clients:\n"
-          "\n    default:\n"
-          "\n      uri: <%= ENV['MONGODB_URI'] %>\n" 
-          "\n      options:\n" 
-          "\n        consistency: :strong\n\n"  
+          "\nproduction:" +
+          "\n  clients:" +
+          "\n    default:" +
+          "\n      uri: <%= ENV['MONGODB_URI'] %>" + 
+          "\n      options:" + 
+          "\n        consistency: :strong"  
         end
       end
       def finish
