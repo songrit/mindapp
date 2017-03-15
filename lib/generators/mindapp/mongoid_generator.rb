@@ -8,19 +8,17 @@ module Mindapp
           "\n    raise_not_found_error: false"
         end  
         inject_into_file 'config/mongoid.yml', :before => 'test:' do
-          "\nproduction:
-          "\n  clients:"
-          "\n    default:"
-          "\n      uri: <%= ENV['MONGODB_URI'] %>" 
-          "\n      options:" 
-          "\n        consistency: :strong"  
+          "\nproduction:\n"
+          "\n  clients:\n"
+          "\n    default:\n"
+          "\n      uri: <%= ENV['MONGODB_URI'] %>\n" 
+          "\n      options:\n" 
+          "\n        consistency: :strong\n\n"  
         end
       end
       def finish
-        puts "Mongoid configured, please run rake mindapp:seed to set up admin/secret user, and may Set 
-
+        puts "Mongoid configured, please run rake mindapp:seed to set up admin/secret user, and may Set "
       end
-
     end
   end
 end
