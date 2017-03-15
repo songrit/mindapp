@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   # then use attribute 'data-ajax'=>'false'
   # see app/views/sessions/new.html.erb for sample
   def create
-    user = User.from_omniauth(env["omniauth.auth"])
+    user = User.from_omniauth(request.env["omniauth.auth"])
     session[:user_id] = user.id
     redirect_to '/mindapp/pending'
   rescue
