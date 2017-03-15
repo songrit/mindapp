@@ -7,7 +7,7 @@ module Mindapp
         inject_into_file 'config/mongoid.yml', :after => '  # raise_not_found_error: true' do
           "\n    raise_not_found_error: false"
         end  
-        inject_into_file 'config/mongoid.yml', :before => 'test:' do
+        inject_into_file 'config/mongoid.yml', :after => '  # app_name: MyApplicationName' do
           "\nproduction:\n"
           "\n  clients:\n"
           "\n    default:\n"
