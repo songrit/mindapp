@@ -34,7 +34,7 @@ module Mindapp
       if option[:alert]
         ma_log option[:alert]
       end
-      render :text => "<script>window.location.replace('#{url}')</script>"
+      render plain: "<script>window.location.replace('#{url}')</script>"
     end
     def read_binary(path)
       File.open path, "rb" do |f| f.read end
@@ -115,10 +115,10 @@ module Mindapp
           :unread=> true, :ip=> ($ip || request.env["REMOTE_ADDR"])
       # if session[:user_id]
       #   Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
-      #     :user_id => $user.id, :unread=> true, :ip=> env["REMOTE_ADDR"]
+      #     :user_id => $user.id, :unread=> true, :ip=>request.env["REMOTE_ADDR"]
       # else
       #   Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
-      #     :unread=> true, :ip=> env["REMOTE_ADDR"]
+      #     :unread=> true, :ip=>request.env["REMOTE_ADDR"]
       # end
     end
 

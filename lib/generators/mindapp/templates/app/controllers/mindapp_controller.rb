@@ -25,13 +25,13 @@ class MindappController < ApplicationController
       redirect_to action:"pending"
   end
   def ajax_notice
-    if notice=Mindapp::Notice.recent(current_user, env["REMOTE_ADDR"])
+    if notice=Mindapp::Notice.recent(current_user,request.env["REMOTE_ADDR"])
       notice.update_attribute :unread, false
       js = "notice('#{notice.message}');"
     else
       js = ""
     end
-    render :text=> "<script>#{js}</script>"
+    render plain: "<script>#{js}</script>"
   end
   def init
     module_code, code = params[:s].split(":")
@@ -307,11 +307,11 @@ class MindappController < ApplicationController
     File.open('public/doc.html','w') {|f| f.puts html }
     respond_to do |format|
       format.html {
-        render :text=> @print+html, :layout => 'layouts/_page'
-        # render :text=> Maruku.new(doc).to_html, :layout => false
+        render plain: @print+html, :layout => 'layouts/_page'
+        # render plain: Maruku.new(doc).to_html, :layout => false
       # format.html {
       #   h = RDoc::Markup::ToHtml.new
-      #   render :text=> h.convert(doc), :layout => 'layouts/_page'
+      #   render plain: h.convert(doc), :layout => 'layouts/_page'
       }
       format.pdf  {
         latex= Maruku.new(doc).to_latex
@@ -320,7 +320,7 @@ class MindappController < ApplicationController
         # system('pdflatex tmp/doc.tex ')
         # send_file( 'tmp/doc.pdf', :type => ‘application/pdf’,
           # :disposition => ‘inline’, :filename => 'doc.pdf')
-        render :text=>'done'
+        render plain:'done'
       }
     end
   end
