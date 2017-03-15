@@ -10,8 +10,8 @@ I like to develop application using Ruby on Rails. I find that most of my projec
 
 These versions works for sure but others may do.
 
-* Ruby 2.2.4
-* Rails 4.2.6
+* Ruby 2.3.0
+* Rails 5.0.0
 * MongoDB
 * Freemind 0.9
 
