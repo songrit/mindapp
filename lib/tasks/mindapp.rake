@@ -120,7 +120,7 @@ end
     attr_hash.each do |a|
       # doc+= "\n*****"+a.to_s+"\n"
       if a[:edit]
-        doc += "  #{a[plain:]}\n"
+        doc += "  #{a[:text]}\n"
       else
         doc += "  field :#{a[:code]}, :type => #{a[:type].capitalize}\n"
       end
