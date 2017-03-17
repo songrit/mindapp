@@ -24,7 +24,7 @@ class User
       user.role = "M"
     end
   end
-  def ma_secured?
-    role.upcase.split(',').include?(ma_secured_ROLE)
+  def ma-secured?
+    role.upcase.split(',').include?(ma-secured_ROLE)
   end
 end
