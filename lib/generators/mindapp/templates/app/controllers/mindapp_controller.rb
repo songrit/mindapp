@@ -156,13 +156,13 @@ class MindappController < ApplicationController
         @doc= Mindapp::Doc.where(:runseq_id=>@runseq.id).first
         @doc.update_attributes :data_text=> render_to_string(:inline=>@ui, :layout=>"utf8"),
           :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
-          :ip=> get_ip, :service=>service, :display=>display,
+          :ip=> get_ip, :service=>service, :demonstrate=>display,
           :secured => @xmain.service.secured
       else
         @doc= Mindapp::Doc.create :name=> @runseq.name,
           :content_type=>"output", :data_text=> render_to_string(:inline=>@ui, :layout=>"utf8"),
           :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
-          :ip=> get_ip, :service=>service, :display=>display,
+          :ip=> get_ip, :service=>service, :demonstrate=>display,
           :secured => @xmain.service.secured
       end
       @message = defined?(MSG_NEXT) ? MSG_NEXT : "Next &gt;"
@@ -186,7 +186,7 @@ class MindappController < ApplicationController
     @doc= Mindapp::Doc.create :name=> @runseq.name,
       :content_type=>"mail", :data_text=> render_to_string(:inline=>@ui, :layout=>false),
       :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
-      :ip=> get_ip, :service=>service, :display=>false,
+      :ip=> get_ip, :service=>service, :demonstrate=>false,
       :secured => @xmain.service.secured
     eval "@xvars[:#{@runseq.code}] = url_for(:controller=>'mindapp', :action=>'document', :id=>@doc.id)"
     mail_from = get_option('from')
@@ -258,7 +258,7 @@ class MindappController < ApplicationController
         :filename=> params.original_filename,
         :content_type => params.content_type || 'application/zip',
         :data_text=> '',
-        :display=>true,
+        :demonstrate=>true,
         :secured => @xmain.service.secured )
     if defined?(IMAGE_LOCATION)
       filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
@@ -281,7 +281,7 @@ class MindappController < ApplicationController
       :filename=> params.original_filename,
       :content_type => params.content_type || 'application/zip',
       :data_text=> '',
-      :display=>true, :secured => @xmain.service.secured )
+      :demonstrate=>true, :secured => @xmain.service.secured )
     if defined?(IMAGE_LOCATION)
       filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
       File.open(filename,"wb") { |f| f.write(params.read) }
@@ -472,7 +472,7 @@ class MindappController < ApplicationController
         :filename=> (params[:file_name]||''),
         :content_type => (params[:content_type] || 'application/zip'),
         :data_text=> '',
-        :display=>true
+        :demonstrate=>true
       path = (IMAGE_LOCATION || "tmp")
       File.open("#{path}/f#{doc.id}","wb") { |f|
         f.puts(params[:content])
