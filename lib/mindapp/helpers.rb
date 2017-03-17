@@ -34,7 +34,7 @@ module Mindapp
       if option[:alert]
         ma_log option[:alert]
       end
-      render plain: "<script>window.location.replace('#{url}')</script>"
+      render html: "<script>window.location.replace('#{url}')</script>"
     end
     def read_binary(path)
       File.open path, "rb" do |f| f.read end
