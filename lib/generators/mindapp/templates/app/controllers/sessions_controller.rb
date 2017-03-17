@@ -18,7 +18,9 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     # redirect_to '/mindapp/help'
-    refresh_to root_path
+    #refresh_to root_path
+    #  render not work!!
+    redirect_to 'mindapp/index'
   end
 
   def failure
