@@ -157,13 +157,13 @@ class MindappController < ApplicationController
         @doc.update_attributes :data_text=> render_to_string(:inline=>@ui, :layout=>"utf8"),
           :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
           :ip=> get_ip, :service=>service, :demonstrate=>display,
-          :ma-secured => @xmain.service.ma-secured
+          :masecured => @xmain.service.masecured
       else
         @doc= Mindapp::Doc.create :name=> @runseq.name,
           :content_type=>"output", :data_text=> render_to_string(:inline=>@ui, :layout=>"utf8"),
           :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
           :ip=> get_ip, :service=>service, :demonstrate=>display,
-          :ma-secured => @xmain.service.ma-secured
+          :masecured => @xmain.service.masecured
       end
       @message = defined?(MSG_NEXT) ? MSG_NEXT : "Next &gt;"
       @message = "สิ้นสุดการทำงาน" if @runseq.end
@@ -187,7 +187,7 @@ class MindappController < ApplicationController
       :content_type=>"mail", :data_text=> render_to_string(:inline=>@ui, :layout=>false),
       :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
       :ip=> get_ip, :service=>service, :demonstrate=>false,
-      :ma-secured => @xmain.service.ma-secured
+      :masecured => @xmain.service.masecured
     eval "@xvars[:#{@runseq.code}] = url_for(:controller=>'mindapp', :action=>'document', :id=>@doc.id)"
     mail_from = get_option('from')
     # sender= render_to_string(:inline=>mail_from) if mail_from
@@ -259,7 +259,7 @@ class MindappController < ApplicationController
         :content_type => params.content_type || 'application/zip',
         :data_text=> '',
         :demonstrate=>true,
-        :ma-secured => @xmain.service.ma-secured )
+        :masecured => @xmain.service.masecured )
     if defined?(IMAGE_LOCATION)
       filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
       File.open(filename,"wb") { |f| f.write(params.read) }
@@ -281,7 +281,7 @@ class MindappController < ApplicationController
       :filename=> params.original_filename,
       :content_type => params.content_type || 'application/zip',
       :data_text=> '',
-      :demonstrate=>true, :ma-secured => @xmain.service.ma-secured )
+      :demonstrate=>true, :masecured => @xmain.service.masecured )
     if defined?(IMAGE_LOCATION)
       filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
       File.open(filename,"wb") { |f| f.write(params.read) }
@@ -483,8 +483,8 @@ class MindappController < ApplicationController
     end
   end
   def do_search
-    if current_user.ma-secured?
-      @docs = GmaDoc.search_ma-secured(@q.downcase, params[:page], PER_PAGE)
+    if current_user.masecured?
+      @docs = GmaDoc.search_masecured(@q.downcase, params[:page], PER_PAGE)
     else
       @docs = GmaDoc.search(@q.downcase, params[:page], PER_PAGE)
     end
