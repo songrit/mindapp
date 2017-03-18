@@ -254,7 +254,7 @@ module Mindapp
             rule= get_option_xml("rule", step1) || ""
             ma_service= Mindapp::Service.find_or_create_by :module_code=> ma_module.code, :code=> scode
             ma_service.update_attributes :xml=>s.to_s, :name=>sname,
-              :list=>listed(s), :secured=>ma_secured?(s),
+              :list=>listed(s), :ma_secured=>secured?(s),
               :module_id=>ma_module.id, :seq => seq,
               :confirm=> get_option_xml("confirm", xml),
               :role => role, :rule => rule, :uid=> ma_service.id.to_s
