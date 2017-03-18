@@ -10,7 +10,7 @@ class Mindapp::Service
   field :rule, :type => String
   field :seq, :type => Integer
   field :list, :type => Boolean
-  field :masecured, :type => Boolean
+  field :ma_secured, :type => Boolean
   field :confirm, :type => Boolean
 
   belongs_to :module, :class_name => "Mindapp::Module"
