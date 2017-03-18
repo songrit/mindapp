@@ -5,7 +5,7 @@ class User
   field :code, :type => String
   field :email, :type => String
   field :role, :type => String
-  belongs_to :identity
+  belongs_to :identity, :polymorphic => true, :optional => true
   has_many :xmains, :class_name => "Mindapp::Xmain"
 
   def has_role(role1)
