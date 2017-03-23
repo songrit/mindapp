@@ -31,7 +31,7 @@ class MindappController < ApplicationController
     else
       js = ""
     end
-    render html: "<script>#{js}</script>"
+    render inline: "<script>#{js}</script>"
   end
   def init
     module_code, code = params[:s].split(":")
@@ -42,7 +42,7 @@ class MindappController < ApplicationController
       result = create_runseq(xmain)
       unless result
         message = "cannot find action for xmain #{xmain.id}"
-        ma_log("ERROR", message)
+        ma_log("ERROR: message")
         flash[:notice]= message
         redirect_to "pending" and return
       end
