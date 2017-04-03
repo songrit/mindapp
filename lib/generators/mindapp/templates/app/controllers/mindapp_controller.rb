@@ -42,7 +42,7 @@ class MindappController < ApplicationController
       result = create_runseq(xmain)
       unless result
         message = "cannot find action for xmain #{xmain.id}"
-        ma_log("ERROR", message)
+        ma_log(message)
         flash[:notice]= message
         redirect_to "pending" and return
       end
