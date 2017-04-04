@@ -17,6 +17,8 @@ module Mindapp
               "\n    default:" +
               "\n      uri: <%= ENV['MONGODB_URI'] %>" +
               "\n      options:" +
+              "\n        raise_not_found_error: false" +
+              "\n        belongs_to_required_by_default: false" +
               "\n        consistency: :strong\n"
         end
       end
