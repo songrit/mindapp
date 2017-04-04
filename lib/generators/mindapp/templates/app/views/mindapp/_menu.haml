@@ -7,7 +7,7 @@
       %ul{"data-role" => "listview", "data-theme" => "g"}
         %li
           %a{"data-panel" => "main", :href => "/mindapp"} Home
-        = render "/mindapp/menu_mm"
+        = render :partial => "mindapp/menu_mm"
         - if login?
           %li
             %a{:href=>"/mindapp/pending", "data-rel"=>"dialog", "data-panel" => "main"} Pending Tasks
