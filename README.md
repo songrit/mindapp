@@ -30,6 +30,11 @@ app without ActiveRecord
     $ rails new shop --skip-test-unit --skip-bundle --skip-active-record
 
 add mindapp to your Gemfile:
+For uptodate development gem use:
+
+    gem 'mindapp', github:'kul1/mindapp'
+
+For original gem use:
 
     gem 'mindapp'
 
