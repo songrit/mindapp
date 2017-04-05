@@ -25,33 +25,30 @@ class MindappController < ApplicationController
     redirect_to action:"pending"
   end
   def ajax_notice
-    if notice=Mindapp::Notice.recent(current_user,request.env["REMOTE_ADDR"])
-      notice.update_attribute(:unread, false)
+    if notice=Mindapp::Notice.recent(current_user, env["REMOTE_ADDR"])
+      notice.update_attribute :unread, false
       js = "notice('#{notice.message}');"
     else
       js = ""
     end
-    render html: "<script>#{js}</script>"
+    render :text=> "<script>#{js}</script>"
   end
   def init
     module_code, code = params[:s].split(":")
     @service= Mindapp::Service.where(:module_code=> module_code, :code=> code).first
     # @service= Mindapp::Service.where(:module_code=> params[:module], :code=> params[:service]).first
     if @service && authorize_init?
-      puts "----------------------------------------------------------------------------------------"
       xmain = create_xmain(@service)
-      puts "============================================================================== #{xmain}"
       result = create_runseq(xmain)
-      puts "............................................................................... #{result}"
       unless result
         message = "cannot find action for xmain #{xmain.id}"
-        ma_log(message)
+        ma_log("ERROR", message)
         flash[:notice]= message
         redirect_to "pending" and return
       end
       xmain.update_attribute(:xvars, @xvars)
-      #xmain.runseqs.last.update_attribute(:end, true)
-      @runseq_last.update_attribute(:end, true)
+      xmain.runseqs.last.update_attribute(:end,true)
+      #Above line cause error update_attribute in heroku shown in logs and it was proposed to fixed in github:'kul1/g241502'
       redirect_to :action=>'run', :id=>xmain.id
     else
       refresh_to "/", :alert => "Error: cannot process"
@@ -160,14 +157,14 @@ class MindappController < ApplicationController
         @doc= Mindapp::Doc.where(:runseq_id=>@runseq.id).first
         @doc.update_attributes :data_text=> render_to_string(:inline=>@ui, :layout=>"utf8"),
                                :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
-                               :ip=> get_ip, :service=>service, :demonstrate=>display,
-                               :secured => @xmain.service.ma_secured
+                               :ip=> get_ip, :service=>service, :display=>display,
+                               :secured => @xmain.service.secured
       else
         @doc= Mindapp::Doc.create :name=> @runseq.name,
                                   :content_type=>"output", :data_text=> render_to_string(:inline=>@ui, :layout=>"utf8"),
                                   :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
-                                  :ip=> get_ip, :service=>service, :demonstrate=>display,
-                                  :secured => @xmain.service.ma_secured
+                                  :ip=> get_ip, :service=>service, :display=>display,
+                                  :secured => @xmain.service.secured
       end
       @message = defined?(MSG_NEXT) ? MSG_NEXT : "Next &gt;"
       @message = "สิ้นสุดการทำงาน" if @runseq.end
@@ -190,8 +187,8 @@ class MindappController < ApplicationController
     @doc= Mindapp::Doc.create :name=> @runseq.name,
                               :content_type=>"mail", :data_text=> render_to_string(:inline=>@ui, :layout=>false),
                               :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
-                              :ip=> get_ip, :service=>service, :demonstrate=>false,
-                              :secured => @xmain.service.ma_secured
+                              :ip=> get_ip, :service=>service, :display=>false,
+                              :secured => @xmain.service.secured
     eval "@xvars[:#{@runseq.code}] = url_for(:controller=>'mindapp', :action=>'document', :id=>@doc.id)"
     mail_from = get_option('from')
     # sender= render_to_string(:inline=>mail_from) if mail_from
@@ -249,7 +246,7 @@ class MindappController < ApplicationController
         end
       end
     else
-      @xmain.update_attribute(:current_runseq, next_runseq.id)
+      @xmain.update_attribute :current_runseq, next_runseq.id
       redirect_to :action=>'run', :id=>@xmain.id and return
     end
   end
@@ -262,8 +259,8 @@ class MindappController < ApplicationController
         :filename=> params.original_filename,
         :content_type => params.content_type || 'application/zip',
         :data_text=> '',
-        :demonstrate=>true,
-        :secured => @xmain.service.ma_secured )
+        :display=>true,
+        :secured => @xmain.service.secured )
     if defined?(IMAGE_LOCATION)
       filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
       File.open(filename,"wb") { |f| f.write(params.read) }
@@ -285,7 +282,7 @@ class MindappController < ApplicationController
         :filename=> params.original_filename,
         :content_type => params.content_type || 'application/zip',
         :data_text=> '',
-        :demonstrate=>true, :secured => @xmain.service.ma_secured )
+        :display=>true, :secured => @xmain.service.secured )
     if defined?(IMAGE_LOCATION)
       filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
       File.open(filename,"wb") { |f| f.write(params.read) }
@@ -311,11 +308,11 @@ class MindappController < ApplicationController
     File.open('public/doc.html','w') {|f| f.puts html }
     respond_to do |format|
       format.html {
-        render plain: @print+html, :layout => 'layouts/_page'
-        # render plain: Maruku.new(doc).to_html, :layout => false
+        render :text=> @print+html, :layout => 'layouts/_page'
+        # render :text=> Maruku.new(doc).to_html, :layout => false
         # format.html {
         #   h = RDoc::Markup::ToHtml.new
-        #   render plain: h.convert(doc), :layout => 'layouts/_page'
+        #   render :text=> h.convert(doc), :layout => 'layouts/_page'
       }
       format.pdf  {
         latex= Maruku.new(doc).to_latex
@@ -324,7 +321,7 @@ class MindappController < ApplicationController
         # system('pdflatex tmp/doc.tex ')
         # send_file( 'tmp/doc.pdf', :type => ‘application/pdf’,
         # :disposition => ‘inline’, :filename => 'doc.pdf')
-        render plain:'done'
+        render :text=>'done'
       }
     end
   end
@@ -438,9 +435,7 @@ class MindappController < ApplicationController
                                      :code=> code, :role=>role.upcase, :rule=> rule,
                                      :rstep=> i, :form_step=> j, :status=>'I',
                                      :xml=>activity.to_s
-      puts "||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| #{runseq}"
       xmain.current_runseq= runseq.id if i==1
-      @runseq_last = runseq
     end
     @xvars['total_steps']= i
     @xvars['total_form_steps']= j
@@ -478,7 +473,7 @@ class MindappController < ApplicationController
                            :filename=> (params[:file_name]||''),
                            :content_type => (params[:content_type] || 'application/zip'),
                            :data_text=> '',
-                           :demonstrate=>true
+                           :display=>true
       path = (IMAGE_LOCATION || "tmp")
       File.open("#{path}/f#{doc.id}","wb") { |f|
         f.puts(params[:content])
@@ -489,8 +484,8 @@ class MindappController < ApplicationController
     end
   end
   def do_search
-    if current_user.ma_secured?
-      @docs = GmaDoc.search_ma_secured(@q.downcase, params[:page], PER_PAGE)
+    if current_user.secured?
+      @docs = GmaDoc.search_secured(@q.downcase, params[:page], PER_PAGE)
     else
       @docs = GmaDoc.search(@q.downcase, params[:page], PER_PAGE)
     end
