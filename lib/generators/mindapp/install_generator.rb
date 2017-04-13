@@ -143,7 +143,7 @@ end
         gem 'bcrypt-ruby', '~> 3.0.0'
         gem 'omniauth-identity'
         gem 'cloudinary'
-        gem 'kaminari'
+        gem 'kaminari-mongoid'
         gem_group :development, :test do
           gem "rspec"
           gem "rspec-rails"

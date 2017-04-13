@@ -6,7 +6,7 @@ class MindappController < ApplicationController
     @xmains = Mindapp::Xmain.all.desc(:created_at).page(params[:page]).per(10)
   end
   def error_logs
-    @xmains = Mindapp::Xmain.in(status:['E']).desc(:created_at).page(params[:page]).per(10)
+    @xmains = Mindapp::Xmain.in(status:['E']).desc(:created_at)
   end
   def pending
     @title= "Pending Tasks"
@@ -25,7 +25,7 @@ class MindappController < ApplicationController
     redirect_to action:"pending"
   end
   def ajax_notice
-    if notice=Mindapp::Notice.recent(current_user, env["REMOTE_ADDR"])
+    if notice=Mindapp::Notice.recent(current_user, request.env["REMOTE_ADDR"])
       notice.update_attribute :unread, false
       js = "notice('#{notice.message}');"
     else
