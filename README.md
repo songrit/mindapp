@@ -10,10 +10,10 @@ I like to develop application using Ruby on Rails. I find that most of my projec
 
 These versions works for sure but others may do.
 
-* Ruby 2.3.0
-* Rails 5.0.0
-* MongoDB
-* Freemind 0.9
+* Ruby 2.4.0
+* Rails 5.0.2
+* MongoDB 6
+* Freemind 1.0.1
 
 ## Convention
 

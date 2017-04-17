@@ -3,13 +3,15 @@
 
 %h2 Requirements
 %ul
-  %li Rails 3.2
-  %li Rubygems 1.8
+  %li Rails 5.0.2
+  %li Rubygems 2.4.0
 
 %h2 Installation
 %ul
   %li gem 'mindapp', may need to uncomment therubyracer
   %li bundle
   %li rails generate mindapp:install
-  %li rake db:seed, will create initial user admin:secret
+  %li bundle
+  %li rails generate mindapp:mongoid
+  %li rake db:seed, will create initial user:password admin:secret
   %li when update app/mindapp/index.mm, run rake mindapp:update
