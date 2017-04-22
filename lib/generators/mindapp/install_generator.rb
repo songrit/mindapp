@@ -136,7 +136,8 @@ end
         # gem "mongoid"
         gem "nokogiri" # use for mindapp/doc
         # gem "rmagick", :require => "RMagick", :platform => "ruby"
-        gem 'haml-rails'
+        #gem 'haml-rails'
+        gem 'haml', git: 'https://github.com/haml/haml'
         gem "mail"
         gem "prawn"
         gem "redcarpet"
