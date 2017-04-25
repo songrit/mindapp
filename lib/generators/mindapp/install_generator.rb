@@ -131,7 +131,9 @@ end
         # gem "mongo", '1.5.1'
         # gem "bson_ext", '1.5.1'
         # gem 'mongoid', '~> 4.0.0'
-        # for Rails 5
+        # for Rails 5.1.0.rc2
+        gem 'rails', '~> 5.1.0.rc2'
+
         gem 'mongoid', github: 'mongodb/mongoid'
         # gem "mongoid"
         gem "nokogiri" # use for mindapp/doc
@@ -153,6 +155,7 @@ end
           gem "rspec-rails"
           gem "better_errors"
           gem "binding_of_caller"
+          gem 'pry-byebug'
         end
       end
 
