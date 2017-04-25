@@ -31,7 +31,7 @@ class MindappController < ApplicationController
     else
       js = ""
     end
-    render html: "<script>#{js}</script>"
+    render plain: "<script>#{js}</script>"
   end
   def init
     module_code, code = params[:s].split(":")
@@ -216,6 +216,7 @@ class MindappController < ApplicationController
           get_image1(k, k1, params[k][k1])
         }
       else
+        v = v.to_unsafe_h unless v.class == String
         eval "@xvars[@runseq.code][k] = v"
       end
     }
@@ -253,14 +254,14 @@ class MindappController < ApplicationController
   # process images from first level
   def get_image(key, params)
     doc = Mindapp::Doc.create(
-        :name=> key.to_s,
-        :xmain=> @xmain.id,
-        :runseq=> @runseq.id,
+        :name=> params.key.to_s,
+        :xmain=> params(@xmain.id),
+        :runseq=> params(@runseq.id),
         :filename=> params.original_filename,
         :content_type => params.content_type || 'application/zip',
-        :data_text=> '',
-        :display=>true,
-        :secured => @xmain.service.secured )
+        :data_text=> params(''),
+        :display=>params.true,
+        :secured => params(@xmain.service.secured ))
     if defined?(IMAGE_LOCATION)
       filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
       File.open(filename,"wb") { |f| f.write(params.read) }
@@ -388,7 +389,8 @@ class MindappController < ApplicationController
                           :status=>'I', # init
                           :user=>current_user,
                           :xvars=> {
-                              :service_id=>service.id, :p=>params,
+                              :service_id=>service.id,
+                              :p=>params.permit(:s, :action, :controller).to_h,
                               :id=>params[:id],
                               :user_id=>current_user.try(:id),
                               :custom_controller=>custom_controller,

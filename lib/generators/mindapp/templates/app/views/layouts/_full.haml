@@ -26,7 +26,7 @@
       = render :partial => "mindapp/static"
 
 :javascript
-  $('div').live('pagehide', function(e,ui) {
+  $('div').on("pagehide", function(e,ui) {
     var page = $(e.target);
     if(page.attr('data-cache') == 'never') {
       page.remove();
