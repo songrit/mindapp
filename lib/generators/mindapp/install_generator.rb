@@ -149,7 +149,6 @@ end
         gem 'kaminari'
         gem 'kaminari-mongoid'
         gem 'jquery-rails'
-        gem 'jquery_mobile_rails'
         gem_group :development, :test do
           gem "rspec"
           gem "rspec-rails"

@@ -241,7 +241,7 @@ class MindappController < ApplicationController
         redirect_to @xvars['p']['return'] and return
       else
         if @user
-          redirect_to :action=>'pending' and return
+          redirect_to :action=>'index' and return
         else
           redirect_to_root and return
         end
@@ -254,14 +254,14 @@ class MindappController < ApplicationController
   # process images from first level
   def get_image(key, params)
     doc = Mindapp::Doc.create(
-        :name=> params.key.to_s,
-        :xmain=> params(@xmain.id),
-        :runseq=> params(@runseq.id),
+        :name=> key.to_s,
+        :xmain=> @xmain.id,
+        :runseq=> @runseq.id,
         :filename=> params.original_filename,
         :content_type => params.content_type || 'application/zip',
-        :data_text=> params(''),
-        :display=>params.true,
-        :secured => params(@xmain.service.secured ))
+        :data_text=> '',
+        :display=>true,
+        :secured => @xmain.service.secured )
     if defined?(IMAGE_LOCATION)
       filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
       File.open(filename,"wb") { |f| f.write(params.read) }
