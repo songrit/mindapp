@@ -132,7 +132,6 @@ end
         # gem "bson_ext", '1.5.1'
         # gem 'mongoid', '~> 4.0.0'
         # for Rails 5.1.0.rc2
-        gem 'rails', '~> 5.1.0.rc2'
 
         gem 'mongoid', github: 'mongodb/mongoid'
         # gem "mongoid"
