@@ -25,13 +25,13 @@ class MindappController < ApplicationController
     redirect_to action:"pending"
   end
   def ajax_notice
-    if notice=Mindapp::Notice.recent(current_user, env["REMOTE_ADDR"])
+    if notice=Mindapp::Notice.recent(current_user, request.env["REMOTE_ADDR"])
       notice.update_attribute :unread, false
       js = "notice('#{notice.message}');"
     else
       js = ""
     end
-    render html: "<script>#{js}</script>"
+    render plain: "<script>#{js}</script>"
   end
   def init
     module_code, code = params[:s].split(":")
@@ -216,6 +216,7 @@ class MindappController < ApplicationController
           get_image1(k, k1, params[k][k1])
         }
       else
+        v = v.to_unsafe_h unless v.class == String
         eval "@xvars[@runseq.code][k] = v"
       end
     }
@@ -240,7 +241,7 @@ class MindappController < ApplicationController
         redirect_to @xvars['p']['return'] and return
       else
         if @user
-          redirect_to :action=>'pending' and return
+          redirect_to :action=>'index' and return
         else
           redirect_to_root and return
         end
@@ -388,7 +389,8 @@ class MindappController < ApplicationController
                           :status=>'I', # init
                           :user=>current_user,
                           :xvars=> {
-                              :service_id=>service.id, :p=>params,
+                              :service_id=>service.id,
+                              :p=>params.permit(:s, :action, :controller).to_h,
                               :id=>params[:id],
                               :user_id=>current_user.try(:id),
                               :custom_controller=>custom_controller,

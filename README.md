@@ -1,4 +1,5 @@
 # Mindapp
+*  Branch master
 
 I like to develop application using Ruby on Rails. I find that most of my projects has some common tasks such as basic design, user administration, logging, workflow, etc. So I decide to use mind map to act as a language to explain what I want and have the tool generates the application that conform to standard framework so I can then customize everything later on. Mind map is used in design phase where it generates models and controller, in execution phase where it controls the work flow, and also use to generate documentation. System Analyst could use mind map to communicate with technical team to align their requirements and help in development.
 
@@ -10,8 +11,8 @@ I like to develop application using Ruby on Rails. I find that most of my projec
 
 These versions works for sure but others may do.
 
-* Ruby 2.4.0
-* Rails 5.0.2
+* Ruby 2.4.1
+* Rails 5.1.0.rc2
 * MongoDB 6
 * Freemind 1.0.1
 
@@ -31,13 +32,14 @@ app without ActiveRecord
 
 ## Add mindapp to your Gemfile:
 
-For uptodate development gem use:
 
+
+For Development (most updated)
     gem 'mindapp', github:'kul1/mindapp'
 
-For original gem use:
-
+For Original 
     gem 'mindapp'
+       
 
 depend on your operating system, you may need to uncomment
 
