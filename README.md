@@ -94,7 +94,8 @@ The first sub branch (e.g. person) is the model name. According to Rails convent
 
 * `fname` - this create a column (field) called fname which is a String by default
 * `sex: integer` - this create a column called sex, it is integer so must be explicity defined. The next sub branch (1: male) is disregarded by Mindapp so we can put whatever we want. Here I just put some reminder.
-* `belongs_to :address` - here we have ![edit](http://songrit.googlecode.com/files/edit.png) icon. this means whatever text on this line will be added as is to the model Mindapp generates. You use this to specify anything you want such as  association, index, remarks in code, etc. according to mongoid gem. To draw the icon, rest mouse on the branch and hit &ltAlt-I&gt.
+* `belongs_to :address` - here we have ![pen](https://cloud.githubusercontent.com/assets/3953832/25600038/3a4ffb66-2f0b-11e7-9f03-b875e550eefe.png)
+ icon. this means whatever text on this line will be added as is to the model Mindapp generates. You use this to specify anything you want such as  association, index, remarks in code, etc. according to mongoid gem. To draw the icon, rest mouse on the branch and hit &ltAlt-I&gt.
 * `dob: date` - use any type that mongoid provides.
 * `photo` - for file field, just use String here. Mindapp will receive the binary file and store in file system or cloudinary then generate a url link to it.
 
@@ -131,7 +132,8 @@ The next sub branches has the following:
 
 Armed with this knowledge, we are ready to add new product into our application like so:
 
-![products](http://songrit.googlecode.com/files/products.png)
+![add_enter](https://cloud.githubusercontent.com/assets/3953832/25600158/582d1fbe-2f0c-11e7-9bde-01a195a45b6c.png)
+
 
 To generate controller and views we save this mind map and run
 
@@ -139,7 +141,9 @@ To generate controller and views we save this mind map and run
 
 open file `app/views/products/add/enter.html.erb` you'll see some sample view already in there but commented. edit the file so it look like this
 
-![enter](http://songrit.googlecode.com/files/enter.png)
+
+![product_enter](https://cloud.githubusercontent.com/assets/3953832/25600363/e5cc8282-2f0d-11e7-81f7-273c9bdc1a63.png)
+
 
 Note that we do not specify form_tag and submit_tag, these will be supplied by Mindapp.
 
