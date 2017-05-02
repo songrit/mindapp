@@ -88,7 +88,7 @@ The 3 main branches are
 
 Fiirst, we need to create some product so we click on models we'll see 2 models person and address. These are sample only. You can delete them or modify them however you want. We'll take a look at them first
 
-![models](http://songrit.googlecode.com/files/models.png)
+![image](https://cloud.githubusercontent.com/assets/3953832/25599768/139e95ba-2f09-11e7-98df-21b6caf9b664.png)
 
 The first sub branch (e.g. person) is the model name. According to Rails convention, this should be a singular word. The next sub branch are columns in the database. Let's take a look at each:
 
@@ -100,7 +100,7 @@ The first sub branch (e.g. person) is the model name. According to Rails convent
 
 In this example we just want a product model, so delete the person and address model and add a product branch like so
 
-![product](http://songrit.googlecode.com/files/product.png)
+![image](https://cloud.githubusercontent.com/assets/3953832/25599836/9bb82d58-2f09-11e7-9a26-c26a5d13c870.png)
 
 Save the mind map then run:
 
@@ -112,7 +112,7 @@ This will create file `app/models/product.rb`. In this file, note the comment li
 
 Next we'll add some product into the database, we'll first take a look at the services branch, which already has 3 sub branches; users, admins, and devs. Unlike models person and address branches, these branches are actively used by the system so I recommend that you leave them alone. Let's open the users branch
 
-![users](http://songrit.googlecode.com/files/users.png)
+![image](https://cloud.githubusercontent.com/assets/3953832/25599895/ecf46466-2f09-11e7-82aa-81ade6b9cd83.png)
 
 The text `users:User` on the sub branch has these implications:
 
@@ -125,8 +125,9 @@ The next sub branches has the following:
 * `link:info: /users` - means that this is a link, the format is link: *submenu label* : *url* where submenu label is the text to show in the submenu and url is the link to go to, in this case, it woud go to http://localhost:3000/users which will perform index action of UsersController.
 * `user:edit` the branch that do not start with role:, rule:, nor link: will be a Mindapp service. You will then specify the sequence of the execution as in this example there are 3 sub branches - enter_user, update_user, and rule:login? Let's take a look at them:
 
-* `enter_user:edit` - the first step is to display a form to input user information, this is accompanied by icon ![attach](http://songrit.googlecode.com/files/attach.png) which means user interface screen. and will correspond to a view file `app/views/users/user/enter_user.html.erb` where `/users` comes from the module name (the sub branch of services), `/user` comes from the service name (the sub branch of users), and `enter_user.html.erb` comes from the first part of this branch. The `edit` after the colon is just a description of this step. This branch also has sub branch `rule:login? && own_xmain?` which specify rule for this step that the user must be login and can continue this task if he is the one who started it. *task* in here means each instance of service.
-* `update_user` - this icon ![bookmark](http://songrit.googlecode.com/files/bookmark.png) means to execute method update_user within `users_controller.rb`
+* `enter_user:edit` - the first step is to display a form to input user information, this is accompanied by icon ![image](https://cloud.githubusercontent.com/assets/3953832/25599946/47c32cf6-2f0a-11e7-80a8-2c02c6294c9a.png)
+ which means user interface screen. and will correspond to a view file `app/views/users/user/enter_user.html.erb` where `/users` comes from the module name (the sub branch of services), `/user` comes from the service name (the sub branch of users), and `enter_user.html.erb` comes from the first part of this branch. The `edit` after the colon is just a description of this step. This branch also has sub branch `rule:login? && own_xmain?` which specify rule for this step that the user must be login and can continue this task if he is the one who started it. *task* in here means each instance of service.
+* `update_user` - this icon ![image](https://cloud.githubusercontent.com/assets/3953832/25599976/87b69ad2-2f0a-11e7-9aba-1bd4e9546d3e.png) means to execute method update_user within `users_controller.rb`
 
 Armed with this knowledge, we are ready to add new product into our application like so:
 
