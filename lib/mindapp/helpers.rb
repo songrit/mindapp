@@ -34,7 +34,7 @@ module Mindapp
       if option[:alert]
         ma_log option[:alert]
       end
-      render :text => "<script>window.location.replace('#{url}')</script>"
+      render inline: "<script>window.location.replace('#{url}')</script>"
     end
     def read_binary(path)
       File.open path, "rb" do |f| f.read end
@@ -115,10 +115,10 @@ module Mindapp
           :unread=> true, :ip=> ($ip || request.env["REMOTE_ADDR"])
       # if session[:user_id]
       #   Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
-      #     :user_id => $user.id, :unread=> true, :ip=> env["REMOTE_ADDR"]
+      #     :user_id => $user.id, :unread=> true, :ip=>request.env["REMOTE_ADDR"]
       # else
       #   Mindapp::Notice.create :message => ERB::Util.html_escape(message.gsub("`","'")),
-      #     :unread=> true, :ip=> env["REMOTE_ADDR"]
+      #     :unread=> true, :ip=>request.env["REMOTE_ADDR"]
       # end
     end
 
@@ -241,7 +241,7 @@ module Mindapp
             rule= get_option_xml("rule", s) || ""
             ma_service= Mindapp::Service.find_or_create_by :module_code=> ma_module.code, :code=> scode, :name=> sname
             ma_service.update_attributes :xml=>s.to_s, :name=>sname,
-              :list=>listed(s), :secured=>secured?(s),
+              :list=>listed(s), :ma_secured=>secured?(s),
               :module_id=>ma_module.id, :seq => seq,
               :confirm=> get_option_xml("confirm", xml),
               :role => role, :rule => rule, :uid=> ma_service.id.to_s
@@ -254,7 +254,7 @@ module Mindapp
             rule= get_option_xml("rule", step1) || ""
             ma_service= Mindapp::Service.find_or_create_by :module_code=> ma_module.code, :code=> scode
             ma_service.update_attributes :xml=>s.to_s, :name=>sname,
-              :list=>listed(s), :secured=>secured?(s),
+              :list=>listed(s), :ma_secured=>secured?(s),
               :module_id=>ma_module.id, :seq => seq,
               :confirm=> get_option_xml("confirm", xml),
               :role => role, :rule => rule, :uid=> ma_service.id.to_s

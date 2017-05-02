@@ -21,17 +21,17 @@ class MindappController < ApplicationController
     end
   end
   def clear_xmains
-      Mindapp::Xmain.where(:status =>{'$in'=>['R','I']}).update_all(:status=>'X')
-      redirect_to action:"pending"
+    Mindapp::Xmain.where(:status =>{'$in'=>['R','I']}).update_all(:status=>'X')
+    redirect_to action:"pending"
   end
   def ajax_notice
-    if notice=Mindapp::Notice.recent(current_user, env["REMOTE_ADDR"])
+    if notice=Mindapp::Notice.recent(current_user, request.env["REMOTE_ADDR"])
       notice.update_attribute :unread, false
       js = "notice('#{notice.message}');"
     else
       js = ""
     end
-    render :text=> "<script>#{js}</script>"
+    render plain: "<script>#{js}</script>"
   end
   def init
     module_code, code = params[:s].split(":")
@@ -48,6 +48,7 @@ class MindappController < ApplicationController
       end
       xmain.update_attribute(:xvars, @xvars)
       xmain.runseqs.last.update_attribute(:end,true)
+      #Above line cause error update_attribute in heroku shown in logs and it was proposed to fixed in github:'kul1/g241502'
       redirect_to :action=>'run', :id=>xmain.id
     else
       refresh_to "/", :alert => "Error: cannot process"
@@ -155,15 +156,15 @@ class MindappController < ApplicationController
       if Mindapp::Doc.where(:runseq_id=>@runseq.id).exists?
         @doc= Mindapp::Doc.where(:runseq_id=>@runseq.id).first
         @doc.update_attributes :data_text=> render_to_string(:inline=>@ui, :layout=>"utf8"),
-          :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
-          :ip=> get_ip, :service=>service, :display=>display,
-          :secured => @xmain.service.secured
+                               :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
+                               :ip=> get_ip, :service=>service, :display=>display,
+                               :secured => @xmain.service.secured
       else
         @doc= Mindapp::Doc.create :name=> @runseq.name,
-          :content_type=>"output", :data_text=> render_to_string(:inline=>@ui, :layout=>"utf8"),
-          :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
-          :ip=> get_ip, :service=>service, :display=>display,
-          :secured => @xmain.service.secured
+                                  :content_type=>"output", :data_text=> render_to_string(:inline=>@ui, :layout=>"utf8"),
+                                  :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
+                                  :ip=> get_ip, :service=>service, :display=>display,
+                                  :secured => @xmain.service.secured
       end
       @message = defined?(MSG_NEXT) ? MSG_NEXT : "Next &gt;"
       @message = "สิ้นสุดการทำงาน" if @runseq.end
@@ -184,10 +185,10 @@ class MindappController < ApplicationController
     f= "app/views/#{service.module.code}/#{service.code}/#{@runseq.code}.html.erb"
     @ui= File.read(f).html_safe
     @doc= Mindapp::Doc.create :name=> @runseq.name,
-      :content_type=>"mail", :data_text=> render_to_string(:inline=>@ui, :layout=>false),
-      :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
-      :ip=> get_ip, :service=>service, :display=>false,
-      :secured => @xmain.service.secured
+                              :content_type=>"mail", :data_text=> render_to_string(:inline=>@ui, :layout=>false),
+                              :xmain=>@xmain, :runseq=>@runseq, :user=>current_user,
+                              :ip=> get_ip, :service=>service, :display=>false,
+                              :secured => @xmain.service.secured
     eval "@xvars[:#{@runseq.code}] = url_for(:controller=>'mindapp', :action=>'document', :id=>@doc.id)"
     mail_from = get_option('from')
     # sender= render_to_string(:inline=>mail_from) if mail_from
@@ -215,6 +216,7 @@ class MindappController < ApplicationController
           get_image1(k, k1, params[k][k1])
         }
       else
+        v = v.to_unsafe_h unless v.class == String
         eval "@xvars[@runseq.code][k] = v"
       end
     }
@@ -239,7 +241,7 @@ class MindappController < ApplicationController
         redirect_to @xvars['p']['return'] and return
       else
         if @user
-          redirect_to :action=>'pending' and return
+          redirect_to :action=>'index' and return
         else
           redirect_to_root and return
         end
@@ -251,7 +253,7 @@ class MindappController < ApplicationController
   end
   # process images from first level
   def get_image(key, params)
-      doc = Mindapp::Doc.create(
+    doc = Mindapp::Doc.create(
         :name=> key.to_s,
         :xmain=> @xmain.id,
         :runseq=> @runseq.id,
@@ -275,13 +277,13 @@ class MindappController < ApplicationController
   # process images from second level, e.g,, fields_for
   def get_image1(key, key1, params)
     doc = Mindapp::Doc.create(
-      :name=> "#{key}_#{key1}",
-      :xmain=> @xmain.id,
-      :runseq=> @runseq.id,
-      :filename=> params.original_filename,
-      :content_type => params.content_type || 'application/zip',
-      :data_text=> '',
-      :display=>true, :secured => @xmain.service.secured )
+        :name=> "#{key}_#{key1}",
+        :xmain=> @xmain.id,
+        :runseq=> @runseq.id,
+        :filename=> params.original_filename,
+        :content_type => params.content_type || 'application/zip',
+        :data_text=> '',
+        :display=>true, :secured => @xmain.service.secured )
     if defined?(IMAGE_LOCATION)
       filename = "#{IMAGE_LOCATION}/f#{Param.gen(:asset_id)}"
       File.open(filename,"wb") { |f| f.write(params.read) }
@@ -309,9 +311,9 @@ class MindappController < ApplicationController
       format.html {
         render :text=> @print+html, :layout => 'layouts/_page'
         # render :text=> Maruku.new(doc).to_html, :layout => false
-      # format.html {
-      #   h = RDoc::Markup::ToHtml.new
-      #   render :text=> h.convert(doc), :layout => 'layouts/_page'
+        # format.html {
+        #   h = RDoc::Markup::ToHtml.new
+        #   render :text=> h.convert(doc), :layout => 'layouts/_page'
       }
       format.pdf  {
         latex= Maruku.new(doc).to_latex
@@ -319,7 +321,7 @@ class MindappController < ApplicationController
         File.open('tmp/doc.tex','w') {|f| f.puts latex}
         # system('pdflatex tmp/doc.tex ')
         # send_file( 'tmp/doc.pdf', :type => ‘application/pdf’,
-          # :disposition => ‘inline’, :filename => 'doc.pdf')
+        # :disposition => ‘inline’, :filename => 'doc.pdf')
         render :text=>'done'
       }
     end
@@ -328,15 +330,15 @@ class MindappController < ApplicationController
   def document
     doc = Mindapp::Doc.find params[:id]
     if doc.cloudinary
-        require 'net/http'
-        require "uri"
-        uri = URI.parse(doc.url)
-        data = Net::HTTP.get_response(uri)
-        send_data(data.body, :filename=>doc.filename, :type=>doc.content_type, :disposition=>"inline")
+      require 'net/http'
+      require "uri"
+      uri = URI.parse(doc.url)
+      data = Net::HTTP.get_response(uri)
+      send_data(data.body, :filename=>doc.filename, :type=>doc.content_type, :disposition=>"inline")
     else
-        data= read_binary(doc.url)
-        send_data(data, :filename=>doc.filename, :type=>doc.content_type, :disposition=>"inline")
-      end
+      data= read_binary(doc.url)
+      send_data(data, :filename=>doc.filename, :type=>doc.content_type, :disposition=>"inline")
+    end
   end
   def status
     @xmain= Mindapp::Xmain.where(:xid=>params[:xid]).first
@@ -345,7 +347,7 @@ class MindappController < ApplicationController
     @xvars= @xmain.xvars
     # flash.now[:notice]= "รายการ #{@xmain.id} ได้ถูกยกเลิกแล้ว" if @xmain.status=='X'
     ma_log "Task #{@xmain.id} is cancelled" if @xmain.status=='X'
-    # flash.now[:notice]= "transaction #{@xmain.id} was cancelled" if @xmain.status=='X'
+      # flash.now[:notice]= "transaction #{@xmain.id} was cancelled" if @xmain.status=='X'
   rescue
     refresh_to "/", :alert => "Could not find task number <b> #{params[:xid]} </b>"
   end
@@ -381,19 +383,20 @@ class MindappController < ApplicationController
     c = name2camel(service.module.code)
     custom_controller= "#{c}Controller"
     Mindapp::Xmain.create :service=>service,
-      :start=>Time.now,
-      :name=>service.name,
-      :ip=> get_ip,
-      :status=>'I', # init
-      :user=>current_user,
-      :xvars=> {
-        :service_id=>service.id, :p=>params,
-        :id=>params[:id],
-        :user_id=>current_user.try(:id),
-        :custom_controller=>custom_controller,
-        :host=>request.host,
-        :referer=>request.env['HTTP_REFERER']
-      }
+                          :start=>Time.now,
+                          :name=>service.name,
+                          :ip=> get_ip,
+                          :status=>'I', # init
+                          :user=>current_user,
+                          :xvars=> {
+                              :service_id=>service.id,
+                              :p=>params.permit(:s, :action, :controller).to_h,
+                              :id=>params[:id],
+                              :user_id=>current_user.try(:id),
+                              :custom_controller=>custom_controller,
+                              :host=>request.host,
+                              :referer=>request.env['HTTP_REFERER']
+                          }
   end
   def create_runseq(xmain)
     @xvars= xmain.xvars
@@ -430,10 +433,10 @@ class MindappController < ApplicationController
       role= get_option_xml("role", activity) || default_role
       rule= get_option_xml("rule", activity) || "true"
       runseq= Mindapp::Runseq.create :xmain=>xmain.id,
-        :name=> name, :action=> action,
-        :code=> code, :role=>role.upcase, :rule=> rule,
-        :rstep=> i, :form_step=> j, :status=>'I',
-        :xml=>activity.to_s
+                                     :name=> name, :action=> action,
+                                     :code=> code, :role=>role.upcase, :rule=> rule,
+                                     :rstep=> i, :form_step=> j, :status=>'I',
+                                     :xml=>activity.to_s
       xmain.current_runseq= runseq.id if i==1
     end
     @xvars['total_steps']= i
@@ -469,10 +472,10 @@ class MindappController < ApplicationController
   def store_asset
     if params[:content]
       doc = GmaDoc.create! :name=> 'asset',
-        :filename=> (params[:file_name]||''),
-        :content_type => (params[:content_type] || 'application/zip'),
-        :data_text=> '',
-        :display=>true
+                           :filename=> (params[:file_name]||''),
+                           :content_type => (params[:content_type] || 'application/zip'),
+                           :data_text=> '',
+                           :display=>true
       path = (IMAGE_LOCATION || "tmp")
       File.open("#{path}/f#{doc.id}","wb") { |f|
         f.puts(params[:content])

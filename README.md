@@ -1,4 +1,5 @@
 # Mindapp
+*  Branch master
 
 I like to develop application using Ruby on Rails. I find that most of my projects has some common tasks such as basic design, user administration, logging, workflow, etc. So I decide to use mind map to act as a language to explain what I want and have the tool generates the application that conform to standard framework so I can then customize everything later on. Mind map is used in design phase where it generates models and controller, in execution phase where it controls the work flow, and also use to generate documentation. System Analyst could use mind map to communicate with technical team to align their requirements and help in development.
 
@@ -10,10 +11,10 @@ I like to develop application using Ruby on Rails. I find that most of my projec
 
 These versions works for sure but others may do.
 
-* Ruby 2.3.0
-* Rails 5.0.0
-* MongoDB
-* Freemind 0.9
+* Ruby 2.4.1
+* Rails 5.1.0.rc2
+* MongoDB 6
+* Freemind 1.0.1
 
 ## Convention
 
@@ -29,9 +30,16 @@ app without ActiveRecord
 
     $ rails new shop --skip-test-unit --skip-bundle --skip-active-record
 
-add mindapp to your Gemfile:
+## Add mindapp to your Gemfile:
 
+
+
+For Development (most updated)
+    gem 'mindapp', github:'kul1/mindapp'
+
+For Original 
     gem 'mindapp'
+       
 
 depend on your operating system, you may need to uncomment
 
@@ -63,11 +71,12 @@ now the application is ready, start it as any Rails application
 
 go to http://localhost:3000, click *Sign In* on the left menu, and enter user name `admin` and password `secret`
 
-![home.mm](http://songrit.googlecode.com/files/home.png)
+![home](https://cloud.githubusercontent.com/assets/3953832/25599624/deab1cee-2f07-11e7-8058-ef67a429e874.png)
+
 
 Now open file `app/mindapp/index.mm` using Freemind
 
-![index.mm](http://songrit.googlecode.com/files/mm.png)
+![index mm](https://cloud.githubusercontent.com/assets/3953832/25599716/90ea1c84-2f08-11e7-8240-dac26742862d.png)
 
 The 3 main branches are
 
@@ -79,19 +88,20 @@ The 3 main branches are
 
 Fiirst, we need to create some product so we click on models we'll see 2 models person and address. These are sample only. You can delete them or modify them however you want. We'll take a look at them first
 
-![models](http://songrit.googlecode.com/files/models.png)
+![image](https://cloud.githubusercontent.com/assets/3953832/25599768/139e95ba-2f09-11e7-98df-21b6caf9b664.png)
 
 The first sub branch (e.g. person) is the model name. According to Rails convention, this should be a singular word. The next sub branch are columns in the database. Let's take a look at each:
 
 * `fname` - this create a column (field) called fname which is a String by default
 * `sex: integer` - this create a column called sex, it is integer so must be explicity defined. The next sub branch (1: male) is disregarded by Mindapp so we can put whatever we want. Here I just put some reminder.
-* `belongs_to :address` - here we have ![edit](http://songrit.googlecode.com/files/edit.png) icon. this means whatever text on this line will be added as is to the model Mindapp generates. You use this to specify anything you want such as  association, index, remarks in code, etc. according to mongoid gem. To draw the icon, rest mouse on the branch and hit &ltAlt-I&gt.
+* `belongs_to :address` - here we have ![pen](https://cloud.githubusercontent.com/assets/3953832/25600038/3a4ffb66-2f0b-11e7-9f03-b875e550eefe.png)
+ icon. this means whatever text on this line will be added as is to the model Mindapp generates. You use this to specify anything you want such as  association, index, remarks in code, etc. according to mongoid gem. To draw the icon, rest mouse on the branch and hit &ltAlt-I&gt.
 * `dob: date` - use any type that mongoid provides.
 * `photo` - for file field, just use String here. Mindapp will receive the binary file and store in file system or cloudinary then generate a url link to it.
 
 In this example we just want a product model, so delete the person and address model and add a product branch like so
 
-![product](http://songrit.googlecode.com/files/product.png)
+![image](https://cloud.githubusercontent.com/assets/3953832/25599836/9bb82d58-2f09-11e7-9a26-c26a5d13c870.png)
 
 Save the mind map then run:
 
@@ -103,7 +113,7 @@ This will create file `app/models/product.rb`. In this file, note the comment li
 
 Next we'll add some product into the database, we'll first take a look at the services branch, which already has 3 sub branches; users, admins, and devs. Unlike models person and address branches, these branches are actively used by the system so I recommend that you leave them alone. Let's open the users branch
 
-![users](http://songrit.googlecode.com/files/users.png)
+![image](https://cloud.githubusercontent.com/assets/3953832/25599895/ecf46466-2f09-11e7-82aa-81ade6b9cd83.png)
 
 The text `users:User` on the sub branch has these implications:
 
@@ -116,12 +126,14 @@ The next sub branches has the following:
 * `link:info: /users` - means that this is a link, the format is link: *submenu label* : *url* where submenu label is the text to show in the submenu and url is the link to go to, in this case, it woud go to http://localhost:3000/users which will perform index action of UsersController.
 * `user:edit` the branch that do not start with role:, rule:, nor link: will be a Mindapp service. You will then specify the sequence of the execution as in this example there are 3 sub branches - enter_user, update_user, and rule:login? Let's take a look at them:
 
-* `enter_user:edit` - the first step is to display a form to input user information, this is accompanied by icon ![attach](http://songrit.googlecode.com/files/attach.png) which means user interface screen. and will correspond to a view file `app/views/users/user/enter_user.html.erb` where `/users` comes from the module name (the sub branch of services), `/user` comes from the service name (the sub branch of users), and `enter_user.html.erb` comes from the first part of this branch. The `edit` after the colon is just a description of this step. This branch also has sub branch `rule:login? && own_xmain?` which specify rule for this step that the user must be login and can continue this task if he is the one who started it. *task* in here means each instance of service.
-* `update_user` - this icon ![bookmark](http://songrit.googlecode.com/files/bookmark.png) means to execute method update_user within `users_controller.rb`
+* `enter_user:edit` - the first step is to display a form to input user information, this is accompanied by icon ![image](https://cloud.githubusercontent.com/assets/3953832/25599946/47c32cf6-2f0a-11e7-80a8-2c02c6294c9a.png)
+ which means user interface screen. and will correspond to a view file `app/views/users/user/enter_user.html.erb` where `/users` comes from the module name (the sub branch of services), `/user` comes from the service name (the sub branch of users), and `enter_user.html.erb` comes from the first part of this branch. The `edit` after the colon is just a description of this step. This branch also has sub branch `rule:login? && own_xmain?` which specify rule for this step that the user must be login and can continue this task if he is the one who started it. *task* in here means each instance of service.
+* `update_user` - this icon ![image](https://cloud.githubusercontent.com/assets/3953832/25599976/87b69ad2-2f0a-11e7-9aba-1bd4e9546d3e.png) means to execute method update_user within `users_controller.rb`
 
 Armed with this knowledge, we are ready to add new product into our application like so:
 
-![products](http://songrit.googlecode.com/files/products.png)
+![add_enter](https://cloud.githubusercontent.com/assets/3953832/25600158/582d1fbe-2f0c-11e7-9bde-01a195a45b6c.png)
+
 
 To generate controller and views we save this mind map and run
 
@@ -129,7 +141,9 @@ To generate controller and views we save this mind map and run
 
 open file `app/views/products/add/enter.html.erb` you'll see some sample view already in there but commented. edit the file so it look like this
 
-![enter](http://songrit.googlecode.com/files/enter.png)
+
+![product_enter](https://cloud.githubusercontent.com/assets/3953832/25600363/e5cc8282-2f0d-11e7-81f7-273c9bdc1a63.png)
+
 
 Note that we do not specify form_tag and submit_tag, these will be supplied by Mindapp.
 

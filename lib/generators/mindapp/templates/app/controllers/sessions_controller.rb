@@ -1,5 +1,6 @@
 # encoding: utf-8
 class SessionsController < ApplicationController
+    skip_before_action :verify_authenticity_token, only: :create
   def new
     @title= 'Sign In'
   end
@@ -8,7 +9,7 @@ class SessionsController < ApplicationController
   # then use attribute 'data-ajax'=>'false'
   # see app/views/sessions/new.html.erb for sample
   def create
-    user = User.from_omniauth(env["omniauth.auth"])
+    user = User.from_omniauth(request.env["omniauth.auth"])
     session[:user_id] = user.id
     redirect_to '/mindapp/pending'
   rescue
@@ -19,6 +20,8 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     # redirect_to '/mindapp/help'
     refresh_to root_path
+    #  render not work!!
+    #redirect_to 'mindapp/index'
   end
 
   def failure

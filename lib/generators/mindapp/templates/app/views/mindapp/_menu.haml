@@ -7,16 +7,16 @@
       %ul{"data-role" => "listview", "data-theme" => "g"}
         %li
           %a{"data-panel" => "main", :href => "/mindapp"} Home
-        = render "/mindapp/menu_mm"
+        = render :partial => "mindapp/menu_mm"
         - if login?
           %li
-            %a{:href=>"/mindapp/pending", "data-rel"=>"dialog", "data-panel" => "main"} Pending Tasks
+            %a{:href=>"/mindapp/pending", "data-panel" => "main"} Pending Tasks
           %li
             %a{"data-panel" => "main", :href => logout_path, "data-ajax"=>"false"} Sign Out
         - else
           %li
-            %a{:href=>new_session_path, "data-rel"=>"dialog", "data-panel" => "main"} Sign In
+            %a{:href=>new_session_path, "data-panel" => "main"} Sign In
           %li
-            %a{:href=>new_identity_path, "data-rel"=>"dialog", "data-panel" => "main"} Sign Up
+            %a{:href=>new_identity_path, "data-panel" => "main"} Sign Up
         %li
           = link_to "Refresh", "#", :onclick=>"window.location.replace('/')"
