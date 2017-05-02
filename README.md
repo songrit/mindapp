@@ -76,7 +76,7 @@ go to http://localhost:3000, click *Sign In* on the left menu, and enter user na
 
 Now open file `app/mindapp/index.mm` using Freemind
 
-![index.mm](http://songrit.googlecode.com/files/mm.png)
+![index mm](https://cloud.githubusercontent.com/assets/3953832/25599716/90ea1c84-2f08-11e7-8240-dac26742862d.png)
 
 The 3 main branches are
 
